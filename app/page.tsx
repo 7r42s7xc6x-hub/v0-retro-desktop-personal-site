@@ -7,7 +7,6 @@ import { Window } from "@/components/desktop/window"
 import { Dock } from "@/components/desktop/dock"
 import { MenuBar, WALLPAPERS } from "@/components/desktop/menu-bar"
 import { AboutContent } from "@/components/desktop/window-contents/about-content"
-import { MusicContent } from "@/components/desktop/window-contents/music-content"
 import { ContactContent } from "@/components/desktop/window-contents/contact-content"
 import { SocialsContent } from "@/components/desktop/window-contents/socials-content"
 import { GuestbookContent } from "@/components/desktop/window-contents/guestbook-content" // Import guestbook
@@ -16,7 +15,6 @@ import { PortalContent } from "@/components/desktop/window-contents/portal-conte
 
 type WindowId =
   | "about"
-  | "music"
   | "contact"
   | "socials"
   | "writing"
@@ -33,7 +31,6 @@ const desktopIcons = [
     externalUrl: "https://progreshion.blog",
   },
   { id: "socials" as WindowId, label: "Socials", iconType: "socials" as const },
-  { id: "music" as WindowId, label: "Spotify", iconType: "spotify" as const },
   // { id: "guestbook" as WindowId, label: "Guestbook", iconType: "guestbook" as const },
   { id: "talks" as WindowId, label: "Podcast", iconType: "talks" as const },
   // Renamed portal icon to window
@@ -57,11 +54,6 @@ const getWindowConfigs = (
     title: "About Me",
     defaultPosition: { x: isMobile ? 10 : 80, y: isMobile ? 50 : 80 },
     size: { width: isMobile ? 300 : 520, height: isMobile ? 420 : 480 },
-  },
-  music: {
-    title: "Spotify",
-    defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 50 : 80 },
-    size: { width: isMobile ? 280 : 380, height: isMobile ? 400 : 450 },
   },
   contact: {
     title: "Uplink",
@@ -129,7 +121,6 @@ export default function Desktop() {
 
   const [windows, setWindows] = useState<WindowState[]>([
     { id: "about", isOpen: false, zIndex: 1, position: { x: 80, y: 80 } },
-    { id: "music", isOpen: false, zIndex: 1, position: { x: 100, y: 80 } },
     { id: "contact", isOpen: false, zIndex: 1, position: { x: 120, y: 100 } },
     { id: "socials", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
     // { id: "guestbook", isOpen: false, zIndex: 1, position: { x: 140, y: 90 } }, // Added guestbook window state
@@ -175,8 +166,6 @@ export default function Desktop() {
     switch (id) {
       case "about":
         return <AboutContent onOpenGuestbook={() => openWindow("guestbook")} /> // Pass callback to open guestbook
-      case "music":
-        return <MusicContent />
       case "contact":
         return <ContactContent />
       case "socials":
