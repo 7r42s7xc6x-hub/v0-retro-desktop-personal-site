@@ -94,7 +94,7 @@ const getWindowConfigs = (
   support: {
     title: "Support",
     defaultPosition: { x: isMobile ? 10 : 130, y: isMobile ? 50 : 90 },
-    size: { width: isMobile ? 280 : 320, height: isMobile ? 280 : 300 },
+    size: { width: isMobile ? 260 : 280, height: isMobile ? 230 : 230 },
   },
   people: {
     title: "People",
