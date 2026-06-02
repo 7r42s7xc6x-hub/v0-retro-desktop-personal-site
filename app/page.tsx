@@ -35,7 +35,7 @@ const desktopIcons = [
   { id: "socials" as WindowId, label: "Socials", iconType: "socials" as const },
   { id: "music" as WindowId, label: "Spotify", iconType: "spotify" as const },
   // { id: "guestbook" as WindowId, label: "Guestbook", iconType: "guestbook" as const },
-  { id: "talks" as WindowId, label: "Talks & Podcasts", iconType: "talks" as const },
+  { id: "talks" as WindowId, label: "Podcast", iconType: "talks" as const },
   // Renamed portal icon to window
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
 ]
@@ -84,7 +84,7 @@ const getWindowConfigs = (
     size: { width: isMobile ? 300 : 360, height: isMobile ? 400 : 420 },
   },
   talks: {
-    title: "Talks & Podcasts",
+    title: "Podcast",
     defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 50 : 70 },
     size: { width: isMobile ? 300 : 420, height: isMobile ? 450 : 480 },
   },
