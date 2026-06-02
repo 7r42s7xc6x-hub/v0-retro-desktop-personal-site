@@ -28,18 +28,6 @@ const socialLinks = [
     ),
   },
   {
-    id: "substack",
-    label: "Substack",
-    url: "https://progreshion.blog",
-    icon: (
-      <div className="w-12 h-12 relative">
-        <div className="absolute inset-0 bg-[#ff6719] border-2 border-[#e55a14] rounded-md flex items-center justify-center">
-          <span className="text-white text-2xl font-bold">S</span>
-        </div>
-      </div>
-    ),
-  },
-  {
     id: "youtube",
     label: "YouTube",
     url: "https://youtube.com/@salvadorpodcast",
