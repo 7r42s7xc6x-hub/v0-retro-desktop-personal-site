@@ -20,8 +20,6 @@ type WindowId =
   | "contact"
   | "socials"
   | "writing"
-  | "soundcloud"
-  | "edgecity"
   | "guestbook"
   | "talks" // Added guestbook
   | "window" // Renamed portal to window
@@ -36,18 +34,6 @@ const desktopIcons = [
   },
   { id: "socials" as WindowId, label: "Socials", iconType: "socials" as const },
   { id: "music" as WindowId, label: "Spotify", iconType: "spotify" as const },
-  {
-    id: "soundcloud" as const,
-    label: "Soundcloud",
-    iconType: "soundcloud" as const,
-    externalUrl: "https://soundcloud.com/timourxyz",
-  },
-  {
-    id: "edgecity" as const,
-    label: "Edge City",
-    iconType: "edgecity" as const,
-    externalUrl: "https://www.edgecity.live/",
-  },
   // { id: "guestbook" as WindowId, label: "Guestbook", iconType: "guestbook" as const },
   { id: "talks" as WindowId, label: "Talks & Podcasts", iconType: "talks" as const },
   // Renamed portal icon to window
@@ -91,16 +77,6 @@ const getWindowConfigs = (
     title: "Writing",
     defaultPosition: { x: isMobile ? 10 : 80, y: isMobile ? 50 : 60 },
     size: { width: isMobile ? 300 : 520, height: isMobile ? 420 : 480 },
-  },
-  soundcloud: {
-    title: "Soundcloud",
-    defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 50 : 50 },
-    size: { width: isMobile ? 280 : 380, height: isMobile ? 400 : 450 },
-  },
-  edgecity: {
-    title: "Edge City",
-    defaultPosition: { x: isMobile ? 10 : 120, y: isMobile ? 100 : 100 },
-    size: { width: isMobile ? 280 : 340, height: isMobile ? 260 : 280 },
   },
   guestbook: {
     title: "Guestbook",
@@ -212,10 +188,6 @@ export default function Desktop() {
       case "window":
         return null // Window returns null - uses renderContent instead
       case "writing":
-        return null
-      case "soundcloud":
-        return null
-      case "edgecity":
         return null
     }
   }
