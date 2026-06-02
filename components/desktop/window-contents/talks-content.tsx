@@ -10,44 +10,44 @@ const PODCAST_DESCRIPTION =
 const PLATFORM_LINKS = [
   { platform: "YouTube", url: "https://youtube.com/@salvadorpodcast" },
   { platform: "Apple Podcasts", url: "https://podcasts.apple.com/gb/podcast/salvador-podcast/id1798566809" },
-  { platform: "Spotify", url: "https://open.spotify.com/show/salvador-podcast" },
+  { platform: "Spotify", url: "https://open.spotify.com/show/481b0TinpbQZSXc8BQEk2N?si=9d7a5cfd3f7841f8" },
 ]
 
 const EPISODES = [
   {
     guest: "Tyler Cowen",
     topic: "talent, effective altruism and religion",
-    url: "https://www.progreshion.blog/p/tyler-cowen-talent-effective-altruism",
+    url: "https://www.progreshion.blog/p/tyler-cowen-talent-effective-altruism?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "Sarah Fitz-Claridge",
     topic: "taking children seriously and freedom",
-    url: "https://www.progreshion.blog/p/16-sarah-fitz-claridge-taking-children",
+    url: "https://www.progreshion.blog/p/19-sarah-fitz-claridge-taking-children?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "Scott Aaronson",
     topic: "quantum computing, AI and AGI progress",
-    url: "https://www.progreshion.blog/p/18-scott-aaronson-quantum-computing",
+    url: "https://www.progreshion.blog/p/18-scott-aaronson-quantum-computing?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "Michael Huemer",
     topic: "free will, political anarchism and morality",
-    url: "https://www.progreshion.blog/p/michael-huemer-free-will",
+    url: "https://www.progreshion.blog/p/19-michael-huemer-free-will-political?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "Brett Hall",
     topic: "the beginning of infinity, Popper and epistemology",
-    url: "https://www.progreshion.blog/p/brett-hall",
+    url: "https://www.progreshion.blog/p/21-brett-hall-the-beginning-of-infinity?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "David Deutsch",
     topic: "the fabric of explanations, optimism and creativity",
-    url: "https://www.progreshion.blog/p/david-deutsch",
+    url: "https://www.progreshion.blog/p/23-david-deutsch-the-fabric-of-explanations?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "Garett Jones",
     topic: "national IQ, immigration and less democracy",
-    url: "https://www.progreshion.blog/p/garett-jones",
+    url: "https://www.progreshion.blog/p/22-garett-jones-national-iq-immigration?r=58frit&utm_campaign=post&utm_medium=web",
   },
   {
     guest: "Johan Norberg",
