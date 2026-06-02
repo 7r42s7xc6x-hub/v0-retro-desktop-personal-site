@@ -30,7 +30,7 @@ const desktopIcons = [
     id: "writing" as const,
     label: "Writing",
     iconType: "writing" as const,
-    externalUrl: "https://substack.com/@timour",
+    externalUrl: "https://progreshion.blog",
   },
   { id: "socials" as WindowId, label: "Socials", iconType: "socials" as const },
   { id: "music" as WindowId, label: "Spotify", iconType: "spotify" as const },
