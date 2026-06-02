@@ -52,7 +52,7 @@ const EPISODES = [
   {
     guest: "Johan Norberg",
     topic: "global capitalism, open societies and degrowth",
-    url: "https://www.progreshion.blog/p/johan-norberg",
+    url: "https://www.progreshion.blog/p/25-johan-norberg-global-capitalism?r=58frit&utm_campaign=post&utm_medium=web",
   },
 ]
 
