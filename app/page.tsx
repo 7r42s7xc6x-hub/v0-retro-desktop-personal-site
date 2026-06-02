@@ -7,24 +7,22 @@ import { Window } from "@/components/desktop/window"
 import { Dock } from "@/components/desktop/dock"
 import { MenuBar, WALLPAPERS } from "@/components/desktop/menu-bar"
 import { AboutContent } from "@/components/desktop/window-contents/about-content"
-import { MusicContent } from "@/components/desktop/window-contents/music-content"
 import { ContactContent } from "@/components/desktop/window-contents/contact-content"
 import { SocialsContent } from "@/components/desktop/window-contents/socials-content"
 import { GuestbookContent } from "@/components/desktop/window-contents/guestbook-content" // Import guestbook
 import { TalksContent } from "@/components/desktop/window-contents/talks-content" // Import TalksContent
 import { PortalContent } from "@/components/desktop/window-contents/portal-content" // Import PortalContent
+import { SupportContent } from "@/components/desktop/window-contents/support-content"
 
 type WindowId =
   | "about"
-  | "music"
   | "contact"
   | "socials"
   | "writing"
-  | "soundcloud"
-  | "edgecity"
   | "guestbook"
   | "talks" // Added guestbook
   | "window" // Renamed portal to window
+  | "support"
 
 const desktopIcons = [
   { id: "about" as WindowId, label: "About Me", iconType: "document" as const },
@@ -32,26 +30,14 @@ const desktopIcons = [
     id: "writing" as const,
     label: "Writing",
     iconType: "writing" as const,
-    externalUrl: "https://substack.com/@timour",
+    externalUrl: "https://progreshion.blog",
   },
   { id: "socials" as WindowId, label: "Socials", iconType: "socials" as const },
-  { id: "music" as WindowId, label: "Spotify", iconType: "spotify" as const },
-  {
-    id: "soundcloud" as const,
-    label: "Soundcloud",
-    iconType: "soundcloud" as const,
-    externalUrl: "https://soundcloud.com/timourxyz",
-  },
-  {
-    id: "edgecity" as const,
-    label: "Edge City",
-    iconType: "edgecity" as const,
-    externalUrl: "https://www.edgecity.live/",
-  },
   // { id: "guestbook" as WindowId, label: "Guestbook", iconType: "guestbook" as const },
-  { id: "talks" as WindowId, label: "Talks & Podcasts", iconType: "talks" as const },
+  { id: "talks" as WindowId, label: "Podcast", iconType: "talks" as const },
   // Renamed portal icon to window
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
+  { id: "support" as WindowId, label: "Support", iconType: "support" as const },
 ]
 
 interface WindowState {
@@ -72,11 +58,6 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 80, y: isMobile ? 50 : 80 },
     size: { width: isMobile ? 300 : 520, height: isMobile ? 420 : 480 },
   },
-  music: {
-    title: "Spotify",
-    defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 50 : 80 },
-    size: { width: isMobile ? 280 : 380, height: isMobile ? 400 : 450 },
-  },
   contact: {
     title: "Uplink",
     defaultPosition: { x: isMobile ? 10 : 120, y: isMobile ? 50 : 100 },
@@ -92,23 +73,13 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 80, y: isMobile ? 50 : 60 },
     size: { width: isMobile ? 300 : 520, height: isMobile ? 420 : 480 },
   },
-  soundcloud: {
-    title: "Soundcloud",
-    defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 50 : 50 },
-    size: { width: isMobile ? 280 : 380, height: isMobile ? 400 : 450 },
-  },
-  edgecity: {
-    title: "Edge City",
-    defaultPosition: { x: isMobile ? 10 : 120, y: isMobile ? 100 : 100 },
-    size: { width: isMobile ? 280 : 340, height: isMobile ? 260 : 280 },
-  },
   guestbook: {
     title: "Guestbook",
     defaultPosition: { x: isMobile ? 10 : 140, y: isMobile ? 50 : 90 },
     size: { width: isMobile ? 300 : 360, height: isMobile ? 400 : 420 },
   },
   talks: {
-    title: "Talks & Podcasts",
+    title: "Podcast",
     defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 50 : 70 },
     size: { width: isMobile ? 300 : 420, height: isMobile ? 450 : 480 },
   },
@@ -116,6 +87,11 @@ const getWindowConfigs = (
     title: "Window",
     defaultPosition: { x: isMobile ? 10 : 150, y: isMobile ? 50 : 100 },
     size: { width: isMobile ? 280 : 350, height: isMobile ? 300 : 350 },
+  },
+  support: {
+    title: "Support",
+    defaultPosition: { x: isMobile ? 10 : 130, y: isMobile ? 50 : 90 },
+    size: { width: isMobile ? 280 : 320, height: isMobile ? 280 : 300 },
   },
 })
 
@@ -153,13 +129,13 @@ export default function Desktop() {
 
   const [windows, setWindows] = useState<WindowState[]>([
     { id: "about", isOpen: false, zIndex: 1, position: { x: 80, y: 80 } },
-    { id: "music", isOpen: false, zIndex: 1, position: { x: 100, y: 80 } },
     { id: "contact", isOpen: false, zIndex: 1, position: { x: 120, y: 100 } },
     { id: "socials", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
     // { id: "guestbook", isOpen: false, zIndex: 1, position: { x: 140, y: 90 } }, // Added guestbook window state
     { id: "talks", isOpen: false, zIndex: 1, position: { x: 100, y: 70 } }, // Added talks window state
     // Renamed portal window state to window
     { id: "window", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
+    { id: "support", isOpen: false, zIndex: 1, position: { x: 130, y: 90 } },
   ])
   const [maxZIndex, setMaxZIndex] = useState(1)
 
@@ -199,8 +175,6 @@ export default function Desktop() {
     switch (id) {
       case "about":
         return <AboutContent onOpenGuestbook={() => openWindow("guestbook")} /> // Pass callback to open guestbook
-      case "music":
-        return <MusicContent />
       case "contact":
         return <ContactContent />
       case "socials":
@@ -213,10 +187,8 @@ export default function Desktop() {
         return null // Window returns null - uses renderContent instead
       case "writing":
         return null
-      case "soundcloud":
-        return null
-      case "edgecity":
-        return null
+      case "support":
+        return <SupportContent />
     }
   }
 

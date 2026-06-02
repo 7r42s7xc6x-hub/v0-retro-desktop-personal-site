@@ -8,11 +8,11 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Timour Kosters | Personal Site",
+  title: "Salvador Duarte | Personal Site",
   description:
-    "Timour Kosters - Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future in popup city environments.",
+    "Salvador Duarte - Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future in popup city environments.",
   keywords: [
-    "Timour Kosters",
+    "Salvador Duarte",
     "Timour",
     "Kosters",
     "Edge City",
@@ -21,19 +21,19 @@ export const metadata: Metadata = {
     "society incubator",
     "popup cities",
   ],
-  authors: [{ name: "Timour Kosters", url: "https://timour.xyz" }],
-  creator: "Timour Kosters",
-  publisher: "Timour Kosters",
+  authors: [{ name: "Salvador Duarte", url: "https://timour.xyz" }],
+  creator: "Salvador Duarte",
+  publisher: "Salvador Duarte",
   metadataBase: new URL("https://timour.xyz"),
   alternates: {
     canonical: "https://timour.xyz",
   },
   openGraph: {
-    title: "Timour Kosters | Personal Site",
+    title: "Salvador Duarte | Personal Site",
     description:
-      "Timour Kosters - Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future.",
+      "Salvador Duarte - Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future.",
     type: "website",
-    siteName: "Timour Kosters",
+    siteName: "Salvador Duarte",
     url: "https://timour.xyz",
     locale: "en_US",
     images: [
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
         url: "https://timour.xyz/images/sunset-coast.jpg",
         width: 1200,
         height: 630,
-        alt: "Timour Kosters Personal Site",
+        alt: "Salvador Duarte Personal Site",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Timour Kosters | Personal Site",
-    description: "Timour Kosters - Building, advising, and investing in startups. Founder at Edge City.",
+    title: "Salvador Duarte | Personal Site",
+    description: "Salvador Duarte - Building, advising, and investing in startups. Founder at Edge City.",
     images: ["https://timour.xyz/images/sunset-coast.jpg"],
     creator: "@timaborschel",
   },
@@ -84,7 +84,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: "Timour Kosters",
+              name: "Salvador Duarte",
               url: "https://timour.xyz",
               description:
                 "Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future.",

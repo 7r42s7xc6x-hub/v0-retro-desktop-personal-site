@@ -6,7 +6,7 @@ const socialLinks = [
   {
     id: "twitter",
     label: "Twitter",
-    url: "https://twitter.com/timourxyz",
+    url: "https://twitter.com/velmeryn",
     icon: (
       <div className="w-12 h-12 relative">
         <div className="absolute inset-0 bg-[#1a1a1a] border-2 border-[#2a2a2a] rounded-md flex items-center justify-center">
@@ -16,28 +16,25 @@ const socialLinks = [
     ),
   },
   {
-    id: "instagram",
-    label: "IG",
-    url: "https://www.instagram.com/timkosters/",
+    id: "linkedin",
+    label: "LinkedIn",
+    url: "https://linkedin.com/in/salvador-duarte-8b757638a",
     icon: (
       <div className="w-12 h-12 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] border-2 border-[#2a2a2a] rounded-md flex items-center justify-center">
-          <div className="w-7 h-7 border-2 border-white rounded-lg flex items-center justify-center">
-            <div className="w-3 h-3 border-2 border-white rounded-full" />
-          </div>
-          <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full" />
+        <div className="absolute inset-0 bg-[#0077b5] border-2 border-[#005582] rounded-md flex items-center justify-center">
+          <span className="text-white text-xl font-bold">in</span>
         </div>
       </div>
     ),
   },
   {
-    id: "linkedin",
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/timkosters/",
+    id: "youtube",
+    label: "YouTube",
+    url: "https://youtube.com/@salvadorpodcast",
     icon: (
       <div className="w-12 h-12 relative">
-        <div className="absolute inset-0 bg-[#0077b5] border-2 border-[#005582] rounded-md flex items-center justify-center">
-          <span className="text-white text-xl font-bold">in</span>
+        <div className="absolute inset-0 bg-[#ff0000] border-2 border-[#cc0000] rounded-md flex items-center justify-center">
+          <div className="w-0 h-0 border-l-[10px] border-l-white border-y-[6px] border-y-transparent ml-1" />
         </div>
       </div>
     ),
