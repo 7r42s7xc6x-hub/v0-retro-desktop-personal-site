@@ -10,47 +10,47 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Salvador Duarte | Personal Site",
   description:
-    "Salvador Duarte - Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future in popup city environments.",
+    "Salvador Duarte — 18-year-old Portuguese writer, podcaster, and Emergent Ventures grantee. Thoughts on philosophy, economics, science and progress.",
   keywords: [
     "Salvador Duarte",
-    "Timour",
-    "Kosters",
-    "Edge City",
-    "startup advisor",
-    "startup investor",
-    "society incubator",
-    "popup cities",
+    "velmeryn",
+    "progreshion",
+    "podcast",
+    "philosophy",
+    "economics",
+    "Portugal",
+    "Emergent Ventures",
   ],
-  authors: [{ name: "Salvador Duarte", url: "https://timour.xyz" }],
+  authors: [{ name: "Salvador Duarte", url: "https://salvadorduarte.com" }],
   creator: "Salvador Duarte",
   publisher: "Salvador Duarte",
-  metadataBase: new URL("https://timour.xyz"),
+  metadataBase: new URL("https://salvadorduarte.com"),
   alternates: {
-    canonical: "https://timour.xyz",
+    canonical: "https://salvadorduarte.com",
   },
   openGraph: {
     title: "Salvador Duarte | Personal Site",
     description:
-      "Salvador Duarte - Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future.",
+      "Salvador Duarte — 18-year-old Portuguese writer, podcaster, and Emergent Ventures grantee. Thoughts on philosophy, economics, science and progress.",
     type: "website",
     siteName: "Salvador Duarte",
-    url: "https://timour.xyz",
+    url: "https://salvadorduarte.com",
     locale: "en_US",
     images: [
       {
-        url: "https://timour.xyz/images/sunset-coast.jpg",
+        url: "https://salvadorduarte.com/images/profile.png",
         width: 1200,
         height: 630,
-        alt: "Salvador Duarte Personal Site",
+        alt: "Salvador Duarte",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Salvador Duarte | Personal Site",
-    description: "Salvador Duarte - Building, advising, and investing in startups. Founder at Edge City.",
-    images: ["https://timour.xyz/images/sunset-coast.jpg"],
-    creator: "@timaborschel",
+    description: "Salvador Duarte — 18-year-old Portuguese writer, podcaster, and Emergent Ventures grantee. Thoughts on philosophy, economics, science and progress.",
+    images: ["https://salvadorduarte.com/images/profile.png"],
+    creator: "@velmeryn",
   },
   robots: {
     index: true,
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/favicon.png",
+    apple: "/favicon.png",
   },
     generator: 'v0.app'
 }
@@ -85,20 +85,13 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Salvador Duarte",
-              url: "https://timour.xyz",
+              url: "https://salvadorduarte.com",
               description:
-                "Building, advising, and investing in startups. Founder at Edge City, creating society incubators focused on prototyping the future.",
+                "18-year-old Portuguese writer, podcaster, and Emergent Ventures grantee. Thoughts on philosophy, economics, science and progress.",
               sameAs: [
-                "https://twitter.com/timaborschel",
-                "https://substack.com/@timour",
-                "https://soundcloud.com/timourxyz",
+                "https://twitter.com/velmeryn",
               ],
-              jobTitle: "Founder",
-              worksFor: {
-                "@type": "Organization",
-                name: "Edge City",
-                url: "https://www.edgecity.live/",
-              },
+              jobTitle: "Writer & Podcaster",
             }),
           }}
         />
