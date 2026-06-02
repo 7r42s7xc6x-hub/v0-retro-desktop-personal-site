@@ -21,7 +21,7 @@ export function SupportContent() {
       {/* Support button */}
       <div className="flex justify-center pt-2">
         <a
-          href="https://buy.stripe.com/28E28rewieT10MG57TfEk00"
+          href="https://buy.stripe.com/28E28rewieT10MG97TfEk00"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-b from-[#f5d442] to-[#d4a827] hover:from-[#ffe066] hover:to-[#e6b830] text-[#5a4510] font-semibold rounded-md border-2 border-[#8B6914] shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_2px_4px_rgba(0,0,0,0.2)] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] transition-all"
