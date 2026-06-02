@@ -5,17 +5,17 @@
 // ============================================
 
 const ABOUT_CONFIG = {
-  profileImage: "/images/young-timour.png",
+  profileImage: "/images/profile.png",
 
   // Main greeting
-  greeting: "Hey! I'm Timour",
+  greeting: "Hey, I'm Salvador",
 
   // Bio paragraphs (add as many as you like)
   bioParagraphs: [
-    "I've been building, advising, and investing in startups for the last ten years. Now, I'm building Edge City, where we're creating a 'society incubator' focused on prototyping the future. We do this in popup city environments. ",
+    "I am an 18yo Portuguese guy who's interested in all things, I am mainly drawn to philosophy and economics.",
+    "I was awarded an Emergent Ventures grant by Tyler Cowen to support my podcast.",
+    "Above all else, I am a devoted follower of Jesus and that shapes how I see everything else.",
   ],
-
-  edgeCityLink: "https://www.edgecity.live/",
 
   contact: {
     status: "ONLINE", // Options: "ONLINE", "OFFLINE", "AWAY", "BUSY"
@@ -48,17 +48,6 @@ export function AboutContent() {
               {paragraph}
             </p>
           ))}
-          <p className="leading-relaxed text-black break-words">
-            More here:{" "}
-            <a
-              href={ABOUT_CONFIG.edgeCityLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 underline break-all"
-            >
-              www.edgecity.live
-            </a>
-          </p>
         </div>
       </div>
 
