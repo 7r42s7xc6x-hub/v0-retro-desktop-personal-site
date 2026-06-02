@@ -27,6 +27,7 @@ interface DesktopIconProps {
     | "talks"
     | "portal"
     | "support"
+    | "people"
 }
 
 export function DesktopIcon({
@@ -329,6 +330,29 @@ export function DesktopIcon({
               </div>
               {/* Shine effect */}
               <div className="absolute top-1 left-2 w-2 h-3 bg-white/30 rounded-full rotate-[-30deg]" />
+            </div>
+          </div>
+        )
+      case "people":
+        return (
+          <div className="w-14 h-11 relative">
+            {/* Folder tab */}
+            <div className="absolute top-0 left-1 w-5 h-3 bg-[#d4a574] border-2 border-b-0 border-[#2a2a2a] rounded-t-sm" />
+            {/* Folder body */}
+            <div className="absolute top-2 left-0 right-0 bottom-0 bg-[#d4a574] border-2 border-[#2a2a2a] rounded-sm flex items-center justify-center gap-0.5 pt-1">
+              {/* Three people silhouettes */}
+              <div className="flex items-end -mr-1">
+                <div className="w-1.5 h-1.5 bg-[#2a2a2a] rounded-full" />
+                <div className="w-1.5 h-2.5 bg-[#2a2a2a] rounded-t-sm -ml-0.5" />
+              </div>
+              <div className="flex items-end z-10">
+                <div className="w-2 h-2 bg-[#2a2a2a] rounded-full" />
+                <div className="w-2 h-3 bg-[#2a2a2a] rounded-t-sm -ml-0.5" />
+              </div>
+              <div className="flex items-end -ml-1">
+                <div className="w-1.5 h-1.5 bg-[#2a2a2a] rounded-full" />
+                <div className="w-1.5 h-2.5 bg-[#2a2a2a] rounded-t-sm -ml-0.5" />
+              </div>
             </div>
           </div>
         )

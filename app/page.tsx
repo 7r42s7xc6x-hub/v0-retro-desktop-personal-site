@@ -13,6 +13,7 @@ import { GuestbookContent } from "@/components/desktop/window-contents/guestbook
 import { TalksContent } from "@/components/desktop/window-contents/talks-content" // Import TalksContent
 import { PortalContent } from "@/components/desktop/window-contents/portal-content" // Import PortalContent
 import { SupportContent } from "@/components/desktop/window-contents/support-content"
+import { PeopleContent } from "@/components/desktop/window-contents/people-content"
 
 type WindowId =
   | "about"
@@ -23,6 +24,7 @@ type WindowId =
   | "talks" // Added guestbook
   | "window" // Renamed portal to window
   | "support"
+  | "people"
 
 const desktopIcons = [
   { id: "about" as WindowId, label: "About Me", iconType: "document" as const },
@@ -38,6 +40,7 @@ const desktopIcons = [
   // Renamed portal icon to window
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
   { id: "support" as WindowId, label: "Support", iconType: "support" as const },
+  { id: "people" as WindowId, label: "People", iconType: "people" as const },
 ]
 
 interface WindowState {
@@ -93,6 +96,11 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 130, y: isMobile ? 50 : 90 },
     size: { width: isMobile ? 280 : 320, height: isMobile ? 280 : 300 },
   },
+  people: {
+    title: "People",
+    defaultPosition: { x: isMobile ? 10 : 120, y: isMobile ? 50 : 80 },
+    size: { width: isMobile ? 300 : 380, height: isMobile ? 420 : 480 },
+  },
 })
 
 export default function Desktop() {
@@ -136,6 +144,7 @@ export default function Desktop() {
     // Renamed portal window state to window
     { id: "window", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
     { id: "support", isOpen: false, zIndex: 1, position: { x: 130, y: 90 } },
+    { id: "people", isOpen: false, zIndex: 1, position: { x: 120, y: 80 } },
   ])
   const [maxZIndex, setMaxZIndex] = useState(1)
 
@@ -189,6 +198,8 @@ export default function Desktop() {
         return null
       case "support":
         return <SupportContent />
+      case "people":
+        return <PeopleContent />
     }
   }
 
