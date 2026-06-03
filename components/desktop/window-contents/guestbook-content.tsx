@@ -55,7 +55,7 @@ export function GuestbookContent() {
       {/* Header */}
       <div className="text-center border-b-2 border-dashed border-gray-400 pb-3">
         <h2 className="text-lg font-bold">[ GUESTBOOK ]</h2>
-        <p className="text-xs text-gray-600 mt-1">Leave a message for Timour</p>
+        <p className="text-xs text-gray-600 mt-1">Leave a message for Salvador</p>
       </div>
 
       {/* Form */}

@@ -11,7 +11,7 @@ export function ProjectsContent() {
   return (
     <div className="w-full h-full -m-4">
       <iframe
-        src="https://substack.com/@timour"
+        src="https://substack.com/@velmeryn"
         className="w-full h-full border-0"
         style={{ minHeight: "350px" }}
         title="Substack"
