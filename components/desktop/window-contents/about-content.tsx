@@ -14,7 +14,7 @@ const ABOUT_CONFIG = {
   bioParagraphs: [
     "I am an 18yo Portuguese guy who's interested in all things, I am mainly drawn to philosophy and economics.",
     "I was awarded an Emergent Ventures grant by Tyler Cowen to support my podcast.",
-    "Above all else, I am a devoted follower of Jesus and that shapes how I see everything else.",
+    "Above all else, I am a devoted follower of Jesus and that shapes how I see everything else. I am a full time minister.",
   ],
 
   contact: {
