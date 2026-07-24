@@ -54,16 +54,6 @@ const EPISODES = [
     topic: "global capitalism, open societies and degrowth",
     url: "https://www.progreshion.blog/p/25-johan-norberg-global-capitalism?r=58frit&utm_campaign=post&utm_medium=web",
   },
-  {
-    guest: "Peter Thiel",
-    topic: "",
-    url: "https://x.com/peterthiel?lang=en",
-  },
-  {
-    guest: "Marc Andreessen",
-    topic: "",
-    url: "https://a16z.com/author/marc-andreessen",
-  },
 ]
 
 // ============================================
@@ -146,7 +136,7 @@ export function TalksContent() {
             className="block border-2 border-[#2a2a2a] bg-[#f5f5f0] p-3 hover:bg-[#e8e8e0] transition-colors cursor-pointer"
           >
             <h3 className="font-bold text-sm leading-snug text-blue-700 hover:text-blue-900">{episode.guest}</h3>
-            {episode.topic ? <p className="text-xs text-gray-600 mt-1">{episode.topic}</p> : null}
+            <p className="text-xs text-gray-600 mt-1">{episode.topic}</p>
           </a>
         ))}
       </div>
