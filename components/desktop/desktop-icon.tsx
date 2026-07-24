@@ -26,7 +26,6 @@ interface DesktopIconProps {
     | "guestbook"
     | "talks"
     | "portal"
-    | "support"
     | "people"
 }
 
@@ -312,24 +311,6 @@ export function DesktopIcon({
               <div className="absolute inset-3 rounded-full border border-white/20" />
               {/* Center bright spot */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_8px_2px_rgba(255,255,255,0.8)]" />
-            </div>
-          </div>
-        )
-      case "support":
-        return (
-          <div className="w-12 h-12 relative">
-            {/* Coin body */}
-            <div className="absolute inset-0 rounded-full border-[3px] border-[#8B6914] bg-gradient-to-br from-[#f5d442] via-[#e6c030] to-[#c9a227] overflow-hidden shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),inset_0_-2px_4px_rgba(0,0,0,0.2)]">
-              {/* Inner ring */}
-              <div className="absolute inset-[3px] rounded-full border-2 border-[#d4b02a]/60" />
-              {/* Heart symbol in center */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <svg width="16" height="14" viewBox="0 0 16 14" fill="#8B6914">
-                  <path d="M8 14l-1.4-1.3C2.6 9 0 6.6 0 3.7 0 1.6 1.6 0 3.7 0c1.2 0 2.4.6 3.3 1.5C7.9.6 9.1 0 10.3 0 12.4 0 14 1.6 14 3.7c0 2.9-2.6 5.3-6.6 9L8 14z" transform="translate(1, 0)" />
-                </svg>
-              </div>
-              {/* Shine effect */}
-              <div className="absolute top-1 left-2 w-2 h-3 bg-white/30 rounded-full rotate-[-30deg]" />
             </div>
           </div>
         )
