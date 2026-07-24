@@ -27,6 +27,7 @@ interface DesktopIconProps {
     | "talks"
     | "portal"
     | "support"
+    | "people"
 }
 
 export function DesktopIcon({
@@ -312,6 +313,26 @@ export function DesktopIcon({
               {/* Center bright spot */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_8px_2px_rgba(255,255,255,0.8)]" />
             </div>
+          </div>
+        )
+      case "people":
+        return (
+          <div className="w-14 h-12 relative">
+            {/* Lectern base */}
+            <div className="absolute bottom-0 left-1 right-1 h-2 bg-[#5a5a5a] border-2 border-[#2a2a2a] rounded-sm" />
+            {/* Lectern legs */}
+            <div className="absolute bottom-1 left-2 w-1.5 h-9 bg-[#4a4a4a] border border-[#2a2a2a] rounded-t-full" />
+            <div className="absolute bottom-1 right-2 w-1.5 h-9 bg-[#4a4a4a] border border-[#2a2a2a] rounded-t-full" />
+            {/* Book pages fanned out */}
+            <div className="absolute bottom-3 left-3 right-3 h-5 bg-[#d4c9a8] border border-[#2a2a2a] rounded-t-sm -rotate-6 origin-bottom" />
+            <div className="absolute bottom-3 left-3 right-3 h-5 bg-[#e0d5b4] border border-[#2a2a2a] rounded-t-sm -rotate-3 origin-bottom" />
+            {/* Front book cover */}
+            <div className="absolute bottom-3 left-3 right-3 h-6 bg-[#f5f0dc] border-2 border-[#2a2a2a] rounded-t-sm">
+              <div className="absolute top-1.5 left-1 right-1 h-[1px] bg-[#2a2a2a] opacity-30" />
+              <div className="absolute top-3 left-1 right-2 h-[1px] bg-[#2a2a2a] opacity-30" />
+            </div>
+            {/* Top knob */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-2 bg-[#6a6a6a] border border-[#2a2a2a] rounded-t-full" />
           </div>
         )
       case "support":
