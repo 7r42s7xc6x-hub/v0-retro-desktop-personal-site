@@ -30,20 +30,20 @@ const MENU_CONFIG = {
     },
     {
       name: "Floating Layers",
-      url: "/images/timour-create-a-diagram-of-the-pace-layers-but-instead-of-the-121ab87e-f431-4d70-b107-52fa6f1e2fd0-0.png",
+      url: "/images/floating-layers.png",
       type: "image" as const,
     },
     {
       name: "Mountain Blueprint",
-      url: "/images/timour-httpss.png",
+      url: "/images/mountain-blueprint.png",
       type: "image" as const,
     },
   ],
 
-  githubUrl: "https://github.com/timkosters/v0-retro-desktop-personal-site",
+  githubUrl: "https://github.com/7r42s7xc6x-hub/v0-retro-desktop-personal-site",
 
   // Contact email
-  email: "hello@timour.dev",
+  email: "hello@salvadorduarte.com",
 }
 
 export const WALLPAPERS = MENU_CONFIG.wallpapers

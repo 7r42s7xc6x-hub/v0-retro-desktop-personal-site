@@ -1,5 +1,6 @@
-const MONO_FONT =
-  'ui-monospace, "SF Mono", Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", monospace'
+"use client"
+
+const MONO_FONT = 'ui-monospace, "SF Mono", Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", monospace'
 
 const PEOPLE = [
   { name: "Tyler Cowen", url: "https://tylercowen.com/" },
@@ -35,8 +36,10 @@ export function PeopleContent() {
   return (
     <div className="flex flex-col gap-4 text-[#2a2a2a]">
       <div className="text-center border-b-2 border-[#2a2a2a] pb-3 mb-1">
-        <h2 className="text-base font-bold tracking-wide">[ PEOPLE ]</h2>
-        <p className="text-xs mt-2 opacity-80 leading-relaxed">
+        <h2 className="text-base font-bold tracking-wide" style={{ fontFamily: MONO_FONT }}>
+          [ PEOPLE ]
+        </h2>
+        <p className="text-xs mt-2 opacity-80 leading-relaxed" style={{ fontFamily: MONO_FONT }}>
           Some of the most interesting people I find myself returning to again and again.
         </p>
       </div>
