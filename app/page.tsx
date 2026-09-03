@@ -12,7 +12,6 @@ import { SocialsContent } from "@/components/desktop/window-contents/socials-con
 import { GuestbookContent } from "@/components/desktop/window-contents/guestbook-content" // Import guestbook
 import { TalksContent } from "@/components/desktop/window-contents/talks-content" // Import TalksContent
 import { PortalContent } from "@/components/desktop/window-contents/portal-content" // Import PortalContent
-import { PeopleContent } from "@/components/desktop/window-contents/people-content"
 
 type WindowId =
   | "about"
@@ -22,7 +21,6 @@ type WindowId =
   | "guestbook"
   | "talks" // Added guestbook
   | "window" // Renamed portal to window
-  | "people"
 
 const desktopIcons = [
   { id: "about" as WindowId, label: "About Me", iconType: "document" as const },
@@ -37,7 +35,6 @@ const desktopIcons = [
   { id: "talks" as WindowId, label: "Podcast", iconType: "talks" as const },
   // Renamed portal icon to window
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
-  { id: "people" as WindowId, label: "People", iconType: "people" as const },
 ]
 
 interface WindowState {
@@ -88,11 +85,6 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 150, y: isMobile ? 50 : 100 },
     size: { width: isMobile ? 280 : 350, height: isMobile ? 300 : 350 },
   },
-  people: {
-    title: "People",
-    defaultPosition: { x: isMobile ? 10 : 160, y: isMobile ? 50 : 80 },
-    size: { width: isMobile ? 300 : 400, height: isMobile ? 450 : 500 },
-  },
 })
 
 export default function Desktop() {
@@ -135,7 +127,6 @@ export default function Desktop() {
     { id: "talks", isOpen: false, zIndex: 1, position: { x: 100, y: 70 } }, // Added talks window state
     // Renamed portal window state to window
     { id: "window", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
-    { id: "people", isOpen: false, zIndex: 1, position: { x: 160, y: 80 } },
   ])
   const [maxZIndex, setMaxZIndex] = useState(1)
 
@@ -187,8 +178,6 @@ export default function Desktop() {
         return null // Window returns null - uses renderContent instead
       case "writing":
         return null
-      case "people":
-        return <PeopleContent />
     }
   }
 
