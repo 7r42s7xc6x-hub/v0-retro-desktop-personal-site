@@ -13,6 +13,7 @@ const ABOUT_CONFIG = {
   // Bio paragraphs (add as many as you like)
   bioParagraphs: [
     "I am an 18yo Portuguese guy who's interested in all things, mainly philosophy, economics, tech and the startup world.",
+    "I currently work on special projects at Solo Founders, where we're building the home and infrastructure for solo founders. I've also received an Emergent Ventures grant to support my podcast and related projects.",
     "I am a devoted follower of Jesus and that shapes how I see everything else.",
     "email: salvadorcduarte31@gmail.com",
   ],
@@ -45,7 +46,22 @@ export function AboutContent() {
           <h2 className="text-xl font-bold tracking-wide text-center sm:text-left">{ABOUT_CONFIG.greeting}</h2>
           {ABOUT_CONFIG.bioParagraphs.map((paragraph, index) => (
             <p key={index} className="leading-relaxed text-black break-words">
-              {paragraph}
+              {index === 1 ? (
+                <>
+                  I currently work on special projects at{" "}
+                  <a
+                    href="https://solofounders.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-700"
+                  >
+                    Solo Founders
+                  </a>
+                  , where we&apos;re building the home and infrastructure for solo founders. I&apos;ve also received an Emergent Ventures grant to support my podcast and related projects.
+                </>
+              ) : (
+                paragraph
+              )}
             </p>
           ))}
         </div>
