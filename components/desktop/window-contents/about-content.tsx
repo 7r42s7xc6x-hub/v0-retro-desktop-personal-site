@@ -13,6 +13,7 @@ const ABOUT_CONFIG = {
   // Bio paragraphs (add as many as you like)
   bioParagraphs: [
     "I am an 18yo Portuguese guy who's interested in all things, mainly philosophy, economics, tech and the startup world.",
+    "I currently work on special projects at Solo Founders, where we're building the home and infrastructure for solo founders. I've also received an Emergent Ventures grant to support my podcast and related projects.",
     "I am a devoted follower of Jesus and that shapes how I see everything else.",
     "email: salvadorcduarte31@gmail.com",
   ],
