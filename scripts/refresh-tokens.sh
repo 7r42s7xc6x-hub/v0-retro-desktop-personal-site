@@ -6,15 +6,16 @@ set -euo pipefail
 
 REPO_URL="https://github.com/7r42s7xc6x-hub/v0-retro-desktop-personal-site.git"
 CLONE="$HOME/.salvadorduarte-tokens/repo"
-export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin"
+export PATH="$HOME/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin"
 
 if [ ! -d "$CLONE/.git" ]; then
   mkdir -p "$(dirname "$CLONE")"
-  git clone --quiet "$REPO_URL" "$CLONE"
+  git -c credential.helper= -c credential.helper="!$(command -v gh) auth git-credential" clone --quiet "$REPO_URL" "$CLONE"
 fi
 
 cd "$CLONE"
-git fetch --quiet origin main
+GIT_AUTH=(-c credential.helper= -c credential.helper="!$(command -v gh) auth git-credential")
+git "${GIT_AUTH[@]}" fetch --quiet origin main
 git checkout --quiet main
 git reset --quiet --hard origin/main
 
@@ -29,5 +30,5 @@ fi
 
 git add public/tokens.json
 git commit --quiet -m "Update token stats" -m "Automated daily refresh."
-git push --quiet origin main
+git "${GIT_AUTH[@]}" push --quiet origin main
 echo "Pushed token stats."
