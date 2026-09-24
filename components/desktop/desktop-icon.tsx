@@ -28,6 +28,7 @@ interface DesktopIconProps {
     | "portal"
     | "support"
     | "projects"
+    | "tokens"
 }
 
 export function DesktopIcon({
@@ -325,6 +326,16 @@ export function DesktopIcon({
               <div className="absolute bottom-2 right-2 h-2 w-2 rounded-full bg-[#f1d7a5]" />
             </div>
             <div className="absolute left-3 top-0 h-3 w-7 border-2 border-b-0 border-[#2a2a2a] bg-[#d4935c]" />
+          </div>
+        )
+      case "tokens":
+        return (
+          <div className="w-12 h-14 relative">
+            <div className="absolute left-1 top-2 h-10 w-10 border-2 border-[#2a2a2a] bg-[#f4efe2] shadow-[2px_2px_0_#2a2a2a]">
+              <div className="absolute bottom-1.5 left-1.5 h-2 w-1.5 bg-[#3f6b8f]" />
+              <div className="absolute bottom-1.5 left-4 h-4 w-1.5 bg-[#b86b3e]" />
+              <div className="absolute bottom-1.5 left-[26px] h-6 w-1.5 bg-[#6b8f3f]" />
+            </div>
           </div>
         )
       case "support":
