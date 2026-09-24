@@ -27,6 +27,7 @@ interface DesktopIconProps {
     | "talks"
     | "portal"
     | "support"
+    | "projects"
 }
 
 export function DesktopIcon({
@@ -312,6 +313,18 @@ export function DesktopIcon({
               {/* Center bright spot */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_8px_2px_rgba(255,255,255,0.8)]" />
             </div>
+          </div>
+        )
+      case "projects":
+        return (
+          <div className="w-12 h-14 relative">
+            <div className="absolute left-1 top-2 h-10 w-10 rotate-[-3deg] border-2 border-[#2a2a2a] bg-[#b86b3e] shadow-[2px_2px_0_#2a2a2a]">
+              <div className="absolute inset-1 border border-[#e0a36f]" />
+              <div className="absolute left-2 right-2 top-3 h-1 bg-[#f1d7a5]" />
+              <div className="absolute left-2 right-3 top-6 h-1 bg-[#f1d7a5]" />
+              <div className="absolute bottom-2 right-2 h-2 w-2 rounded-full bg-[#f1d7a5]" />
+            </div>
+            <div className="absolute left-3 top-0 h-3 w-7 border-2 border-b-0 border-[#2a2a2a] bg-[#d4935c]" />
           </div>
         )
       case "support":
