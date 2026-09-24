@@ -13,6 +13,7 @@ import { GuestbookContent } from "@/components/desktop/window-contents/guestbook
 import { TalksContent } from "@/components/desktop/window-contents/talks-content" // Import TalksContent
 import { PortalContent } from "@/components/desktop/window-contents/portal-content" // Import PortalContent
 import { ProjectsContent } from "@/components/desktop/window-contents/projects-content"
+import { TokensContent } from "@/components/desktop/window-contents/tokens-content"
 
 type WindowId =
   | "about"
@@ -23,6 +24,7 @@ type WindowId =
   | "talks" // Added guestbook
   | "window" // Renamed portal to window
   | "projects"
+  | "tokens"
 
 const desktopIcons = [
   { id: "about" as WindowId, label: "About Me", iconType: "document" as const },
@@ -38,6 +40,7 @@ const desktopIcons = [
   // Renamed portal icon to window
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
   { id: "projects" as WindowId, label: "Projects", iconType: "projects" as const },
+  { id: "tokens" as WindowId, label: "Tokens", iconType: "tokens" as const },
 ]
 
 interface WindowState {
@@ -93,6 +96,11 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 180, y: isMobile ? 50 : 90 },
     size: { width: isMobile ? 300 : 420, height: isMobile ? 260 : 280 },
   },
+  tokens: {
+    title: "Tokens",
+    defaultPosition: { x: isMobile ? 10 : 200, y: isMobile ? 50 : 70 },
+    size: { width: isMobile ? 300 : 460, height: isMobile ? 460 : 540 },
+  },
 })
 
 export default function Desktop() {
@@ -136,6 +144,7 @@ export default function Desktop() {
     // Renamed portal window state to window
     { id: "window", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
     { id: "projects", isOpen: false, zIndex: 1, position: { x: 180, y: 90 } },
+    { id: "tokens", isOpen: false, zIndex: 1, position: { x: 200, y: 70 } },
   ])
   const [maxZIndex, setMaxZIndex] = useState(1)
 
@@ -189,6 +198,8 @@ export default function Desktop() {
         return null
       case "projects":
         return <ProjectsContent />
+      case "tokens":
+        return <TokensContent />
     }
   }
 
