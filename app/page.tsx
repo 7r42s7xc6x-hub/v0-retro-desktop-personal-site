@@ -12,6 +12,7 @@ import { SocialsContent } from "@/components/desktop/window-contents/socials-con
 import { GuestbookContent } from "@/components/desktop/window-contents/guestbook-content" // Import guestbook
 import { TalksContent } from "@/components/desktop/window-contents/talks-content" // Import TalksContent
 import { PortalContent } from "@/components/desktop/window-contents/portal-content" // Import PortalContent
+import { ProjectsContent } from "@/components/desktop/window-contents/projects-content"
 
 type WindowId =
   | "about"
@@ -21,6 +22,7 @@ type WindowId =
   | "guestbook"
   | "talks" // Added guestbook
   | "window" // Renamed portal to window
+  | "projects"
 
 const desktopIcons = [
   { id: "about" as WindowId, label: "About Me", iconType: "document" as const },
@@ -35,6 +37,7 @@ const desktopIcons = [
   { id: "talks" as WindowId, label: "Podcast", iconType: "talks" as const },
   // Renamed portal icon to window
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
+  { id: "projects" as WindowId, label: "Projects", iconType: "projects" as const },
 ]
 
 interface WindowState {
@@ -85,6 +88,11 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 150, y: isMobile ? 50 : 100 },
     size: { width: isMobile ? 280 : 350, height: isMobile ? 300 : 350 },
   },
+  projects: {
+    title: "Projects",
+    defaultPosition: { x: isMobile ? 10 : 180, y: isMobile ? 50 : 90 },
+    size: { width: isMobile ? 300 : 420, height: isMobile ? 260 : 280 },
+  },
 })
 
 export default function Desktop() {
@@ -127,6 +135,7 @@ export default function Desktop() {
     { id: "talks", isOpen: false, zIndex: 1, position: { x: 100, y: 70 } }, // Added talks window state
     // Renamed portal window state to window
     { id: "window", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
+    { id: "projects", isOpen: false, zIndex: 1, position: { x: 180, y: 90 } },
   ])
   const [maxZIndex, setMaxZIndex] = useState(1)
 
@@ -178,6 +187,8 @@ export default function Desktop() {
         return null // Window returns null - uses renderContent instead
       case "writing":
         return null
+      case "projects":
+        return <ProjectsContent />
     }
   }
 
