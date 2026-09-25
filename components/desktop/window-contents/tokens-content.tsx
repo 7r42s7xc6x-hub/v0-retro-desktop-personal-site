@@ -27,7 +27,6 @@ interface TokenData {
   firstDay: string | null
   days: Day[]
   heat: number[][]
-  commits?: Record<string, number>
 }
 
 const MODEL_COLORS = ["#b86b3e", "#3f6b8f", "#6b8f3f", "#8f3f6b", "#8f7a3f"]
@@ -138,13 +137,11 @@ export function TokensContent() {
   ]
 
   // Calendar: weeks run Sunday to Saturday, ending with the current week.
-  const commits = data.commits ?? {}
   const byDay = new Map(data.days.map((d) => [d.d, d]))
   const sunday = (n: number) => n - fromNum(n).getUTCDay()
   const startNum = Math.min(sunday(firstNum), sunday(today) - (MIN_WEEKS - 1) * 7)
   const weekCount = (sunday(today) - startNum) / 7 + 1
   const dayMax = Math.max(1, ...data.days.map((d) => d.input + d.output + d.cacheRead + d.cacheWrite))
-  const totalCommits = Object.values(commits).reduce((a, b) => a + b, 0)
 
   return (
     <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
@@ -186,11 +183,9 @@ export function TokensContent() {
                     const iso = isoOf(n)
                     const day = byDay.get(iso)
                     const tokens = day ? day.input + day.output + day.cacheRead + day.cacheWrite : 0
-                    const gh = commits[iso] ?? 0
                     const label = [
                       fromNum(n).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" }),
                       tokens ? `${formatTokens(tokens)} tokens · ${day!.messages} messages` : "no Claude Code usage",
-                      gh ? `${gh} GitHub contribution${gh === 1 ? "" : "s"}` : "",
                     ]
                       .filter(Boolean)
                       .join(" · ")
@@ -203,12 +198,6 @@ export function TokensContent() {
                           background: tokens ? `rgba(184,107,62,${0.2 + 0.8 * (tokens / dayMax)})` : "rgba(64,59,50,0.06)",
                         }}
                       >
-                        {gh > 0 && (
-                          <span
-                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#252525]"
-                            style={{ width: gh >= 3 ? 7 : 4, height: gh >= 3 ? 7 : 4 }}
-                          />
-                        )}
                       </div>
                     )
                   })}
@@ -224,10 +213,6 @@ export function TokensContent() {
               <span key={o} className="inline-block h-2.5 w-2.5 border border-[#403b32]/20" style={{ background: `rgba(184,107,62,${o})` }} />
             ))}
             More tokens
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#252525]" />
-            GitHub contributions ({totalCommits} in the last year)
           </span>
         </div>
       </Panel>
