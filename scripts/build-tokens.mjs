@@ -4,6 +4,7 @@
 // Claude Code deletes old session logs, so this MERGES into the existing
 // tokens.json instead of overwriting it: a day that has been recorded is never
 // dropped, and totals are always summed from the stored days.
+import { execFileSync } from "node:child_process"
 import { createHash } from "node:crypto"
 import { existsSync, readdirSync, readFileSync, writeFileSync, statSync } from "node:fs"
 import { homedir } from "node:os"
@@ -33,6 +34,23 @@ if (existsSync(out)) {
 }
 const storedDays = new Map(stored.days.map((d) => [d.d, d]))
 const sessionHashes = new Set(stored.sessionHashes ?? [])
+
+// --- GitHub contributions per day (counts only) ----------------------------
+// Uses the gh CLI. If it fails (offline, logged out) we just keep what's stored.
+const commits = { ...(stored.commits ?? {}) }
+try {
+  const from = new Date(Date.now() - 364 * 86400000).toISOString()
+  const query = `query($from: DateTime!) { viewer { contributionsCollection(from: $from) {
+    contributionCalendar { weeks { contributionDays { date contributionCount } } } } } }`
+  const res = JSON.parse(
+    execFileSync("gh", ["api", "graphql", "-f", `query=${query}`, "-f", `from=${from}`], { encoding: "utf8", timeout: 30000 }),
+  )
+  for (const w of res.data.viewer.contributionsCollection.contributionCalendar.weeks)
+    for (const { date, contributionCount } of w.contributionDays)
+      if (contributionCount > 0) commits[date] = Math.max(commits[date] ?? 0, contributionCount)
+} catch (err) {
+  console.warn(`GitHub contributions not updated: ${err.message.split("\n")[0]}`)
+}
 
 // --- Aggregate the logs that still exist ----------------------------------
 // Claude Code logs one line per content block, so the same message repeats.
@@ -109,6 +127,7 @@ const data = {
   firstDay: days[0]?.d ?? null,
   days,
   heat,
+  commits,
   sessionHashes: [...sessionHashes].sort(),
 }
 
