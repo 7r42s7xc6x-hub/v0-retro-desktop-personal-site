@@ -1,11 +1,16 @@
 // Aggregates Claude Code session logs into public/tokens.json.
 // Numbers only: no prompts, file paths, or project names leave this machine.
-import { readdirSync, readFileSync, writeFileSync, statSync } from "node:fs"
+//
+// Claude Code deletes old session logs, so this MERGES into the existing
+// tokens.json instead of overwriting it: a day that has been recorded is never
+// dropped, and totals are always summed from the stored days.
+import { createHash } from "node:crypto"
+import { existsSync, readdirSync, readFileSync, writeFileSync, statSync } from "node:fs"
 import { homedir } from "node:os"
 import { join, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 
-const root = join(homedir(), ".claude", "projects")
+const root = process.env.CLAUDE_PROJECTS_DIR ?? join(homedir(), ".claude", "projects")
 const out = process.argv[2] ?? join(dirname(fileURLToPath(import.meta.url)), "..", "public", "tokens.json")
 
 function* walk(dir) {
@@ -16,33 +21,45 @@ function* walk(dir) {
   }
 }
 
+const dayTokens = (d) => d.input + d.output + d.cacheRead + d.cacheWrite
+// Session ids are stored hashed so raw ids never get published.
+const hashId = (id) => createHash("sha256").update(String(id)).digest("hex").slice(0, 12)
+
+// --- Read what's already recorded (if anything) ---------------------------
+let stored = { days: [], sessionHashes: [] }
+if (existsSync(out)) {
+  // If this fails, throw: better to fail the run than overwrite recorded history.
+  stored = JSON.parse(readFileSync(out, "utf8"))
+}
+const storedDays = new Map(stored.days.map((d) => [d.d, d]))
+const sessionHashes = new Set(stored.sessionHashes ?? [])
+
+// --- Aggregate the logs that still exist ----------------------------------
 // Claude Code logs one line per content block, so the same message repeats.
 // Keep one record per message id (the one with the most output tokens).
 const messages = new Map()
-for (const file of walk(root)) {
-  for (const line of readFileSync(file, "utf8").split("\n")) {
-    if (!line.includes('"usage"')) continue
-    let d
-    try {
-      d = JSON.parse(line)
-    } catch {
-      continue
+if (existsSync(root)) {
+  for (const file of walk(root)) {
+    for (const line of readFileSync(file, "utf8").split("\n")) {
+      if (!line.includes('"usage"')) continue
+      let d
+      try {
+        d = JSON.parse(line)
+      } catch {
+        continue
+      }
+      const m = d.message
+      if (!m?.usage || !m.model || m.model.startsWith("<") || !d.timestamp) continue
+      const key = m.id ?? d.uuid
+      const prev = messages.get(key)
+      if (prev && prev.usage.output_tokens >= (m.usage.output_tokens ?? 0)) continue
+      messages.set(key, { ts: d.timestamp, model: m.model, usage: m.usage, session: d.sessionId })
     }
-    const m = d.message
-    if (!m?.usage || !m.model || m.model.startsWith("<") || !d.timestamp) continue
-    const key = m.id ?? d.uuid
-    const prev = messages.get(key)
-    if (prev && prev.usage.output_tokens >= (m.usage.output_tokens ?? 0)) continue
-    messages.set(key, { ts: d.timestamp, model: m.model, usage: m.usage, session: d.sessionId })
   }
 }
 
 const pad = (n) => String(n).padStart(2, "0")
-const daily = new Map()
-const heat = Array.from({ length: 7 }, () => Array(24).fill(0))
-const totals = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }
-const sessions = new Set()
-
+const fresh = new Map()
 for (const { ts, model, usage, session } of messages.values()) {
   const t = new Date(ts)
   const day = `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`
@@ -51,31 +68,51 @@ for (const { ts, model, usage, session } of messages.values()) {
   const cacheRead = usage.cache_read_input_tokens ?? 0
   const cacheWrite = usage.cache_creation_input_tokens ?? 0
 
-  const row = daily.get(day) ?? { d: day, input: 0, output: 0, cacheRead: 0, cacheWrite: 0, messages: 0, models: {} }
+  const row =
+    fresh.get(day) ??
+    { d: day, input: 0, output: 0, cacheRead: 0, cacheWrite: 0, messages: 0, models: {}, hours: Array(24).fill(0) }
   row.input += input
   row.output += output
   row.cacheRead += cacheRead
   row.cacheWrite += cacheWrite
   row.messages += 1
+  row.hours[t.getHours()] += 1
   row.models[model] = (row.models[model] ?? 0) + input + output + cacheRead + cacheWrite
-  daily.set(day, row)
+  fresh.set(day, row)
 
-  heat[t.getDay()][t.getHours()] += 1
-  totals.input += input
-  totals.output += output
-  totals.cacheRead += cacheRead
-  totals.cacheWrite += cacheWrite
-  if (session) sessions.add(session)
+  if (session) sessionHashes.add(hashId(session))
 }
 
-const days = [...daily.values()].sort((a, b) => a.d.localeCompare(b.d))
+// --- Merge: per day, keep whichever copy is bigger -------------------------
+// Logs only grow within a day and only shrink when deleted, so bigger = more complete.
+const merged = new Map(storedDays)
+for (const [day, row] of fresh) {
+  const old = merged.get(day)
+  if (!old || dayTokens(row) >= dayTokens(old)) merged.set(day, row)
+}
+
+const days = [...merged.values()].sort((a, b) => a.d.localeCompare(b.d))
+
+const totals = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, messages: 0 }
+const heat = Array.from({ length: 7 }, () => Array(24).fill(0))
+for (const day of days) {
+  for (const k of ["input", "output", "cacheRead", "cacheWrite", "messages"]) totals[k] += day[k]
+  if (!day.hours) continue
+  const [y, mo, d] = day.d.split("-").map(Number)
+  const dow = new Date(y, mo - 1, d).getDay()
+  day.hours.forEach((n, h) => (heat[dow][h] += n))
+}
+
 const data = {
   updatedAt: new Date().toISOString(),
-  totals: { ...totals, messages: messages.size, sessions: sessions.size, activeDays: days.length },
+  totals: { ...totals, sessions: Math.max(sessionHashes.size, stored.totals?.sessions ?? 0), activeDays: days.length },
   firstDay: days[0]?.d ?? null,
   days,
   heat,
+  sessionHashes: [...sessionHashes].sort(),
 }
 
 writeFileSync(out, JSON.stringify(data) + "\n")
-console.log(`Wrote ${out}: ${messages.size} messages, ${sessions.size} sessions, ${days.length} days`)
+console.log(
+  `Wrote ${out}: ${totals.messages} messages (${messages.size} in current logs), ${sessionHashes.size} sessions, ${days.length} days`,
+)
