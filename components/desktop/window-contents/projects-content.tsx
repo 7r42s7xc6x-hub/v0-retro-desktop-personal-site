@@ -8,7 +8,7 @@ const projects = [
   },
   {
     name: "Tyler Cowen Simulator",
-    description: "Ask questions and get answers in the style of economist Tyler Cowen.",
+    description: "A simulator of my interview with Tyler Cowen.",
     url: "https://cowensimulator.com",
   },
 ]
