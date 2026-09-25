@@ -6,6 +6,11 @@ const projects = [
     description: "A map of Portugal's technology ecosystem.",
     url: "https://lusotech.fyi",
   },
+  {
+    name: "Tyler Cowen Simulator",
+    description: "Ask questions and get answers in the style of economist Tyler Cowen.",
+    url: "https://cowensimulator.com",
+  },
 ]
 
 export function ProjectsContent() {
