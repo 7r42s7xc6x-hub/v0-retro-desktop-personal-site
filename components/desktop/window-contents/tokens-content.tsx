@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts"
 
 interface Day {
@@ -38,20 +38,15 @@ const BREAKDOWN = [
 ] as const
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"]
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-const MIN_WEEKS = 16
-
 // Days as whole numbers (UTC) so date maths ignores time zones and DST.
 const toNum = (iso: string) => {
   const [y, m, d] = iso.split("-").map(Number)
   return Math.round(Date.UTC(y, m - 1, d) / 86400000)
 }
-const fromNum = (n: number) => new Date(n * 86400000)
 const todayNum = () => {
   const t = new Date()
   return Math.round(Date.UTC(t.getFullYear(), t.getMonth(), t.getDate()) / 86400000)
 }
-const isoOf = (n: number) => fromNum(n).toISOString().slice(0, 10)
 
 function streaks(active: number[], today: number) {
   const nums = [...new Set(active)].sort((a, b) => a - b)
@@ -98,7 +93,6 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
 export function TokensContent() {
   const [data, setData] = useState<TokenData | null>(null)
   const [failed, setFailed] = useState(false)
-  const calendarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetch("/tokens.json")
@@ -106,11 +100,6 @@ export function TokensContent() {
       .then(setData)
       .catch(() => setFailed(true))
   }, [])
-
-  // Keep the newest weeks in view when the calendar is wider than the window.
-  useEffect(() => {
-    if (data && calendarRef.current) calendarRef.current.scrollLeft = calendarRef.current.scrollWidth
-  }, [data])
 
   if (failed) return <p className="bg-[#f4efe2] p-4 text-sm text-[#252525]">Couldn&apos;t load token stats.</p>
   if (!data) return <p className="bg-[#f4efe2] p-4 text-sm text-[#252525]">Loading…</p>
@@ -136,13 +125,6 @@ export function TokensContent() {
     { label: "Longest streak", value: plural(longest) },
   ]
 
-  // Calendar: weeks run Sunday to Saturday, ending with the current week.
-  const byDay = new Map(data.days.map((d) => [d.d, d]))
-  const sunday = (n: number) => n - fromNum(n).getUTCDay()
-  const startNum = Math.min(sunday(firstNum), sunday(today) - (MIN_WEEKS - 1) * 7)
-  const weekCount = (sunday(today) - startNum) / 7 + 1
-  const dayMax = Math.max(1, ...data.days.map((d) => d.input + d.output + d.cacheRead + d.cacheWrite))
-
   return (
     <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
       <p className="text-xs leading-relaxed text-[#5b5549]">
@@ -157,65 +139,6 @@ export function TokensContent() {
           </div>
         ))}
       </div>
-
-      <Panel title="Calendar">
-        <div ref={calendarRef} className="overflow-x-auto pb-1">
-          <div className="flex gap-[2px]">
-            <div className="flex flex-col gap-[2px] pt-[14px] pr-1 text-[9px] leading-[12px] text-[#5b5549]">
-              {WEEKDAYS.map((w, i) => (
-                <span key={i} className="h-3">
-                  {i % 2 === 1 ? w : ""}
-                </span>
-              ))}
-            </div>
-            {Array.from({ length: weekCount }, (_, w) => {
-              const weekStart = startNum + w * 7
-              const month = fromNum(weekStart).getUTCMonth()
-              const prevMonth = w > 0 ? fromNum(weekStart - 7).getUTCMonth() : -1
-              return (
-                <div key={w} className="flex flex-col gap-[2px]">
-                  <span className="h-3 w-3 overflow-visible whitespace-nowrap text-[9px] leading-3 text-[#5b5549]">
-                    {month !== prevMonth ? MONTHS[month] : ""}
-                  </span>
-                  {Array.from({ length: 7 }, (_, dow) => {
-                    const n = weekStart + dow
-                    if (n > today) return <div key={dow} className="h-3 w-3" />
-                    const iso = isoOf(n)
-                    const day = byDay.get(iso)
-                    const tokens = day ? day.input + day.output + day.cacheRead + day.cacheWrite : 0
-                    const label = [
-                      fromNum(n).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" }),
-                      tokens ? `${formatTokens(tokens)} tokens · ${day!.messages} messages` : "no Claude Code usage",
-                    ]
-                      .filter(Boolean)
-                      .join(" · ")
-                    return (
-                      <div
-                        key={dow}
-                        title={label}
-                        className="relative h-3 w-3 border border-[#403b32]/20"
-                        style={{
-                          background: tokens ? `rgba(184,107,62,${0.2 + 0.8 * (tokens / dayMax)})` : "rgba(64,59,50,0.06)",
-                        }}
-                      >
-                      </div>
-                    )
-                  })}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-[#5b5549]">
-          <span className="flex items-center gap-1">
-            Less
-            {[0.2, 0.45, 0.7, 1].map((o) => (
-              <span key={o} className="inline-block h-2.5 w-2.5 border border-[#403b32]/20" style={{ background: `rgba(184,107,62,${o})` }} />
-            ))}
-            More tokens
-          </span>
-        </div>
-      </Panel>
 
       <Panel title="Where the tokens go">
         <div className="flex h-4 w-full overflow-hidden border-2 border-[#403b32]">
