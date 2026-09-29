@@ -99,7 +99,7 @@ const getWindowConfigs = (
   tokens: {
     title: "Tokens",
     defaultPosition: { x: isMobile ? 10 : 200, y: isMobile ? 50 : 70 },
-    size: { width: isMobile ? 300 : 460, height: isMobile ? 460 : 540 },
+    size: { width: isMobile ? 300 : 460, height: isMobile ? 380 : 420 },
   },
 })
 
