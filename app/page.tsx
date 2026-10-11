@@ -94,7 +94,7 @@ const getWindowConfigs = (
   projects: {
     title: "Projects",
     defaultPosition: { x: isMobile ? 10 : 180, y: isMobile ? 50 : 90 },
-    size: { width: isMobile ? 300 : 420, height: isMobile ? 400 : 380 },
+    size: { width: isMobile ? 300 : 420, height: isMobile ? 480 : 520 },
   },
   tokens: {
     title: "Tokens",
