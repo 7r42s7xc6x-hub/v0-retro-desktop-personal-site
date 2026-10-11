@@ -11,6 +11,11 @@ const projects = [
     description: "A simulator of my interview with Tyler Cowen.",
     url: "https://cowensimulator.com",
   },
+  {
+    name: "Lisboa Live",
+    description: "Real-time Carris bus tracking for Lisbon, with live GPS and arrival notifications.",
+    url: "https://buseslx.salvadorduarte.com",
+  },
 ]
 
 export function ProjectsContent() {
