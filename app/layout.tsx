@@ -10,7 +10,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Salvador Duarte | Personal Site",
   description:
-    "Salvador Duarte — 18-year-old Portuguese writer, podcaster, and Emergent Ventures grantee. Conversations on philosophy, economics, science and progress.",
+    "Currently helping build the home and infrastructure for solo founders.",
   keywords: [
     "Salvador Duarte",
     "velmeryn",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Salvador Duarte | Personal Site",
     description:
-      "Salvador Duarte — writer, podcaster, and Emergent Ventures grantee.",
+      "Currently helping build the home and infrastructure for solo founders.",
     type: "website",
     siteName: "Salvador Duarte",
     url: "https://salvadorduarte.com",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Salvador Duarte | Personal Site",
-    description: "Salvador Duarte — writer, podcaster, and Emergent Ventures grantee.",
+    description: "Currently helping build the home and infrastructure for solo founders.",
     images: ["https://salvadorduarte.com/images/profile.png"],
     creator: "@velmeryn",
   },
@@ -87,7 +87,7 @@ export default function RootLayout({
               name: "Salvador Duarte",
               url: "https://salvadorduarte.com",
               description:
-                "18-year-old Portuguese writer, podcaster, and Emergent Ventures grantee. Conversations on philosophy, economics, science and progress.",
+                "Currently helping build the home and infrastructure for solo founders.",
               sameAs: [
                 "https://twitter.com/velmeryn",
               ],
