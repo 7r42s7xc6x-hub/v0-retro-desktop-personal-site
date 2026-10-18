@@ -24,7 +24,7 @@ const projection = geoEqualEarth()
 // real duration data, just a stand-in for "a lot more time than a visit."
 const LIVED_WEIGHT = 20
 
-const HEX_COLORS = ["#f3ead9", "#e8cfa9", "#d9ab78", "#c17f4f", "#a1562f", "#7a331c"]
+const HEX_COLORS = ["#f6efe1", "#eddcbb", "#e2c293", "#d4a473", "#c2824f", "#ab5f37", "#8f4228", "#6e2817"]
 
 interface HexPoint {
   x: number
@@ -54,15 +54,19 @@ export function TravelsContent() {
       .radius(HEX_RADIUS)(points)
 
     const weights = bins.map((bin) => bin.reduce((sum, d) => sum + (d.place.lived ? LIVED_WEIGHT : (d.place.visits ?? 1)), 0))
+    // log-transformed so a mega-cluster (years lived + 20+ Algarve trips landing in
+    // one hex) doesn't stretch the scale and crush every ordinary 1-3 visit bin to
+    // the same bottom bucket — a single extra visit should still shift the color.
+    const logWeights = weights.map((w) => Math.log1p(w))
     const colorScale = scaleQuantize<string>()
-      .domain([0, Math.max(...weights)])
+      .domain([0, Math.max(...logWeights)])
       .range(HEX_COLORS)
 
     return bins.map((bin, i) => ({
       x: bin.x,
       y: bin.y,
       hexagon: d3Hexbin().radius(HEX_RADIUS).hexagon(),
-      color: colorScale(weights[i]),
+      color: colorScale(logWeights[i]),
       representative: bin[0].place,
     }))
   }, [])
