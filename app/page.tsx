@@ -106,8 +106,8 @@ const getWindowConfigs = (
   },
   travels: {
     title: "Travels",
-    defaultPosition: { x: isMobile ? 10 : 220, y: isMobile ? 50 : 60 },
-    size: { width: isMobile ? 320 : 480, height: isMobile ? 460 : 490 },
+    defaultPosition: { x: isMobile ? 10 : 100, y: isMobile ? 40 : 40 },
+    size: { width: isMobile ? 340 : 820, height: isMobile ? 560 : 760 },
   },
 })
 

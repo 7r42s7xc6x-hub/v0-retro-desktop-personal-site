@@ -1,6 +1,7 @@
 export interface TravelPlace {
   name: string
   country: string
+  state?: string
   lat: number
   lon: number
   visits?: number
@@ -63,24 +64,24 @@ export const travelPlaces: TravelPlace[] = [
   { name: "Mexico City", country: "Mexico", lat: 19.4326, lon: -99.1332, visits: 1 },
 
   // United States
-  { name: "New York City", country: "United States", lat: 40.7128, lon: -74.006, visits: 1 },
-  { name: "Boston", country: "United States", lat: 42.3601, lon: -71.0589, visits: 1 },
-  { name: "Omaha", country: "United States", lat: 41.2565, lon: -95.9345, lived: "Lived here for a year" },
-  { name: "Lincoln", country: "United States", lat: 40.8136, lon: -96.7026, visits: 4, note: "+ everywhere in between Lincoln and Omaha" },
-  { name: "Nebraska City", country: "United States", lat: 40.675, lon: -95.8608, visits: 1 },
-  { name: "Des Moines", country: "United States", lat: 41.5868, lon: -93.625, visits: 1 },
-  { name: "Portland", country: "United States", lat: 45.5152, lon: -122.6784, visits: 1 },
-  { name: "Washington, D.C.", country: "United States", lat: 38.9072, lon: -77.0369, visits: 2, note: "Including Alexandria and Arlington" },
-  { name: "Miami", country: "United States", lat: 25.7617, lon: -80.1918, visits: 1 },
-  { name: "Florida Keys", country: "United States", lat: 24.5551, lon: -81.78, visits: 1 },
-  { name: "Kansas City", country: "United States", lat: 39.0997, lon: -94.5786, visits: 2 },
-  { name: "Topeka", country: "United States", lat: 39.0473, lon: -95.6752, visits: 1 },
-  { name: "Wichita", country: "United States", lat: 37.6872, lon: -97.3301, visits: 1 },
-  { name: "Tulsa", country: "United States", lat: 36.154, lon: -95.9928, visits: 1 },
-  { name: "Oklahoma City", country: "United States", lat: 35.4676, lon: -97.5164, visits: 1 },
-  { name: "Dallas–Fort Worth", country: "United States", lat: 32.7767, lon: -96.797, visits: 1 },
-  { name: "Las Vegas", country: "United States", lat: 36.1699, lon: -115.1398, visits: 1, note: "+ everything in between to San Francisco" },
-  { name: "San Francisco Bay Area", country: "United States", lat: 37.7749, lon: -122.4194, visits: 2 },
-  { name: "Fort Bragg", country: "United States", lat: 39.4457, lon: -123.8053, visits: 1, note: "+ everything in between from San Francisco" },
-  { name: "Honolulu", country: "United States", lat: 21.3069, lon: -157.8583, visits: 1, note: "Oʻahu" },
+  { name: "New York City", country: "United States", state: "New York", lat: 40.7128, lon: -74.006, visits: 1 },
+  { name: "Boston", country: "United States", state: "Massachusetts", lat: 42.3601, lon: -71.0589, visits: 1 },
+  { name: "Omaha", country: "United States", state: "Nebraska", lat: 41.2565, lon: -95.9345, lived: "Lived here for a year" },
+  { name: "Lincoln", country: "United States", state: "Nebraska", lat: 40.8136, lon: -96.7026, visits: 4, note: "+ everywhere in between Lincoln and Omaha" },
+  { name: "Nebraska City", country: "United States", state: "Nebraska", lat: 40.675, lon: -95.8608, visits: 1 },
+  { name: "Des Moines", country: "United States", state: "Iowa", lat: 41.5868, lon: -93.625, visits: 1 },
+  { name: "Portland", country: "United States", state: "Oregon", lat: 45.5152, lon: -122.6784, visits: 1 },
+  { name: "Washington, D.C.", country: "United States", lat: 38.9072, lon: -77.0369, visits: 2, note: "Including Alexandria and Arlington, Virginia" },
+  { name: "Miami", country: "United States", state: "Florida", lat: 25.7617, lon: -80.1918, visits: 1 },
+  { name: "Florida Keys", country: "United States", state: "Florida", lat: 24.5551, lon: -81.78, visits: 1 },
+  { name: "Kansas City", country: "United States", state: "Missouri", lat: 39.0997, lon: -94.5786, visits: 2 },
+  { name: "Topeka", country: "United States", state: "Kansas", lat: 39.0473, lon: -95.6752, visits: 1 },
+  { name: "Wichita", country: "United States", state: "Kansas", lat: 37.6872, lon: -97.3301, visits: 1 },
+  { name: "Tulsa", country: "United States", state: "Oklahoma", lat: 36.154, lon: -95.9928, visits: 1 },
+  { name: "Oklahoma City", country: "United States", state: "Oklahoma", lat: 35.4676, lon: -97.5164, visits: 1 },
+  { name: "Dallas–Fort Worth", country: "United States", state: "Texas", lat: 32.7767, lon: -96.797, visits: 1 },
+  { name: "Las Vegas", country: "United States", state: "Nevada", lat: 36.1699, lon: -115.1398, visits: 1, note: "+ everything in between to San Francisco" },
+  { name: "San Francisco Bay Area", country: "United States", state: "California", lat: 37.7749, lon: -122.4194, visits: 2 },
+  { name: "Fort Bragg", country: "United States", state: "California", lat: 39.4457, lon: -123.8053, visits: 1, note: "+ everything in between from San Francisco" },
+  { name: "Honolulu", country: "United States", state: "Hawaii", lat: 21.3069, lon: -157.8583, visits: 1, note: "Oʻahu" },
 ]

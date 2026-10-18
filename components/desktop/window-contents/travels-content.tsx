@@ -30,19 +30,25 @@ export function TravelsContent() {
   const [selected, setSelected] = useState<TravelPlace | null>(null)
 
   const countryCount = useMemo(() => new Set(travelPlaces.map((p) => p.country)).size, [])
+  const usStateCount = useMemo(
+    () => new Set(travelPlaces.filter((p) => p.country === "United States" && p.state).map((p) => p.state)).size,
+    [],
+  )
 
   return (
     <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
-      <p className="text-sm leading-relaxed">Places I&apos;ve been and places that inspired me along the way.</p>
+      <p className="text-center text-sm leading-relaxed">
+        Places I&apos;ve been and places that inspired me along the way.
+      </p>
 
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-[#5b5549]">
-          {countryCount} countries · {travelPlaces.length} places
-        </span>
-        <div className="flex gap-1">
+      <div className="space-y-2 text-center">
+        <div className="text-base font-bold text-[#403b32]">
+          {usStateCount} US states · {countryCount} countries
+        </div>
+        <div className="flex justify-center gap-1">
           <button
             onClick={() => setView("places")}
-            className={`border-2 border-[#403b32] px-2 py-0.5 text-xs font-bold transition-colors ${
+            className={`border-2 border-[#403b32] px-3 py-1 text-xs font-bold transition-colors ${
               view === "places" ? "bg-[#403b32] text-[#f4efe2]" : "bg-[#fffaf0] text-[#252525] hover:bg-white"
             }`}
           >
@@ -50,7 +56,7 @@ export function TravelsContent() {
           </button>
           <button
             onClick={() => setView("density")}
-            className={`border-2 border-[#403b32] px-2 py-0.5 text-xs font-bold transition-colors ${
+            className={`border-2 border-[#403b32] px-3 py-1 text-xs font-bold transition-colors ${
               view === "density" ? "bg-[#403b32] text-[#f4efe2]" : "bg-[#fffaf0] text-[#252525] hover:bg-white"
             }`}
           >
@@ -59,7 +65,7 @@ export function TravelsContent() {
         </div>
       </div>
 
-      <div className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[2px_2px_0_#403b32]">
+      <div className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[3px_3px_0_#403b32]">
         <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 140 }}
