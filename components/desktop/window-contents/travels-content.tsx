@@ -65,7 +65,10 @@ export function TravelsContent() {
         </div>
       </div>
 
-      <div className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[3px_3px_0_#403b32]">
+      <div
+        className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[3px_3px_0_#403b32]"
+        style={{ aspectRatio: "800 / 335", overflow: "hidden" }}
+      >
         <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 140 }}
@@ -96,9 +99,10 @@ export function TravelsContent() {
             <Marker
               key={place.name}
               coordinates={[place.lon, place.lat]}
+              onMouseEnter={() => setSelected(place)}
               onClick={() => setSelected(place)}
             >
-              {/* Oversized invisible hit area so small dots stay easy to tap/click */}
+              {/* Oversized invisible hit area so small dots stay easy to hover/tap */}
               <circle r={radiusFor(place) + 5} fill="transparent" style={{ cursor: "pointer" }} />
               <circle
                 r={radiusFor(place)}
@@ -113,20 +117,8 @@ export function TravelsContent() {
         </ComposableMap>
       </div>
 
-      <div className="flex min-h-[48px] flex-col justify-center border-2 border-[#403b32] bg-[#fffaf0] p-2 shadow-[2px_2px_0_#403b32]">
-        {selected ? (
-          <>
-            <div className="text-sm font-bold">
-              {selected.name}, {selected.country}
-            </div>
-            <div className="text-xs text-[#5b5549]">
-              {selected.lived ?? `Visited ${selected.visits}×`}
-              {selected.note ? ` — ${selected.note}` : ""}
-            </div>
-          </>
-        ) : (
-          <div className="text-xs italic text-[#5b5549]">Click a dot to see where</div>
-        )}
+      <div className="min-h-[24px] text-center text-sm font-bold text-[#403b32]">
+        {selected ? `${selected.name}, ${selected.country}` : ""}
       </div>
     </div>
   )
