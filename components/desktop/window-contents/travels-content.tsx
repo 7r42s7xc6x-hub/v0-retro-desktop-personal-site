@@ -2,25 +2,34 @@
 
 import { useMemo, useState } from "react"
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
+import { geoEqualEarth } from "d3-geo"
+import { hexbin as d3Hexbin } from "d3-hexbin"
+import { scaleQuantize } from "d3-scale"
 import { travelPlaces, type TravelPlace } from "@/lib/travels-data"
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
+const MAP_WIDTH = 800
+const MAP_HEIGHT = 450
+const PLACE_COLOR = "#b8452f"
+const HEX_RADIUS = 11
 
-const VISITED_COLOR = "#b86b3e"
+// Matches the projection react-simple-maps builds internally for this
+// ComposableMap (geoEqualEarth, same scale, centered translate), so hex
+// bins line up with where the land and Markers actually render.
+const projection = geoEqualEarth()
+  .scale(140)
+  .translate([MAP_WIDTH / 2, MAP_HEIGHT / 2])
 
-function radiusFor(place: TravelPlace) {
-  if (place.lived) return 6.5
-  const visits = place.visits ?? 1
-  return Math.min(3 + Math.sqrt(visits) * 1.3, 8)
-}
+// "Lived here" weighs in as a large multiple of a single visit — there's no
+// real duration data, just a stand-in for "a lot more time than a visit."
+const LIVED_WEIGHT = 20
 
-function densityColorFor(place: TravelPlace) {
-  // Living somewhere counts as maximum density on the same scale as visit count.
-  const t = place.lived ? 1 : Math.min((place.visits ?? 1) / 10, 1)
-  const from = [232, 201, 160]
-  const to = [138, 45, 18]
-  const rgb = from.map((c, i) => Math.round(c + (to[i] - c) * t))
-  return `rgb(${rgb.join(",")})`
+const HEX_COLORS = ["#f3ead9", "#e8cfa9", "#d9ab78", "#c17f4f", "#a1562f", "#7a331c"]
+
+interface HexPoint {
+  x: number
+  y: number
+  place: TravelPlace
 }
 
 export function TravelsContent() {
@@ -32,6 +41,31 @@ export function TravelsContent() {
     () => new Set(travelPlaces.filter((p) => p.country === "United States" && p.state).map((p) => p.state)).size,
     [],
   )
+
+  const hexBins = useMemo(() => {
+    const points: HexPoint[] = travelPlaces.map((place) => {
+      const [x, y] = projection([place.lon, place.lat]) ?? [0, 0]
+      return { x, y, place }
+    })
+
+    const bins = d3Hexbin<HexPoint>()
+      .x((d) => d.x)
+      .y((d) => d.y)
+      .radius(HEX_RADIUS)(points)
+
+    const weights = bins.map((bin) => bin.reduce((sum, d) => sum + (d.place.lived ? LIVED_WEIGHT : (d.place.visits ?? 1)), 0))
+    const colorScale = scaleQuantize<string>()
+      .domain([0, Math.max(...weights)])
+      .range(HEX_COLORS)
+
+    return bins.map((bin, i) => ({
+      x: bin.x,
+      y: bin.y,
+      hexagon: d3Hexbin().radius(HEX_RADIUS).hexagon(),
+      color: colorScale(weights[i]),
+      representative: bin[0].place,
+    }))
+  }, [])
 
   return (
     <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
@@ -70,8 +104,8 @@ export function TravelsContent() {
         <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 140 }}
-          width={800}
-          height={450}
+          width={MAP_WIDTH}
+          height={MAP_HEIGHT}
           style={{ width: "100%", height: "auto", display: "block" }}
         >
           <Geographies geography={GEO_URL}>
@@ -93,25 +127,41 @@ export function TravelsContent() {
             }
           </Geographies>
 
-          {travelPlaces.map((place) => (
-            <Marker
-              key={place.name}
-              coordinates={[place.lon, place.lat]}
-              onMouseEnter={() => setSelected(place)}
-              onClick={() => setSelected(place)}
-            >
-              {/* Oversized invisible hit area so small dots stay easy to hover/tap */}
-              <circle r={radiusFor(place) + 5} fill="transparent" style={{ cursor: "pointer" }} />
-              <circle
-                r={radiusFor(place)}
-                fill={view === "density" ? densityColorFor(place) : VISITED_COLOR}
-                stroke="#2a2a2a"
-                strokeWidth={0.6}
-                opacity={0.9}
-                style={{ cursor: "pointer", pointerEvents: "none" }}
-              />
-            </Marker>
-          ))}
+          {view === "places"
+            ? travelPlaces.map((place) => (
+                <Marker
+                  key={place.name}
+                  coordinates={[place.lon, place.lat]}
+                  onMouseEnter={() => setSelected(place)}
+                  onClick={() => setSelected(place)}
+                >
+                  {/* Oversized invisible hit area so small dots stay easy to hover/tap */}
+                  <circle r={9} fill="transparent" style={{ cursor: "pointer" }} />
+                  <circle
+                    r={place.lived ? 5 : 4}
+                    fill={PLACE_COLOR}
+                    stroke="#2a2a2a"
+                    strokeWidth={0.6}
+                    style={{ cursor: "pointer", pointerEvents: "none" }}
+                  />
+                </Marker>
+              ))
+            : hexBins.map((bin, i) => (
+                <g
+                  key={i}
+                  transform={`translate(${bin.x}, ${bin.y})`}
+                  onMouseEnter={() => setSelected(bin.representative)}
+                  onClick={() => setSelected(bin.representative)}
+                >
+                  <path
+                    d={bin.hexagon}
+                    fill={bin.color}
+                    stroke="#403b32"
+                    strokeWidth={0.4}
+                    style={{ cursor: "pointer" }}
+                  />
+                </g>
+              ))}
         </ComposableMap>
       </div>
 
