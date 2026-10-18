@@ -75,10 +75,12 @@ export const travelPlaces: TravelPlace[] = [
   { name: "Florida Keys", country: "United States", lat: 24.5551, lon: -81.78, visits: 1 },
   { name: "Kansas City", country: "United States", lat: 39.0997, lon: -94.5786, visits: 2 },
   { name: "Topeka", country: "United States", lat: 39.0473, lon: -95.6752, visits: 1 },
+  { name: "Wichita", country: "United States", lat: 37.6872, lon: -97.3301, visits: 1 },
   { name: "Tulsa", country: "United States", lat: 36.154, lon: -95.9928, visits: 1 },
   { name: "Oklahoma City", country: "United States", lat: 35.4676, lon: -97.5164, visits: 1 },
   { name: "Dallas–Fort Worth", country: "United States", lat: 32.7767, lon: -96.797, visits: 1 },
   { name: "Las Vegas", country: "United States", lat: 36.1699, lon: -115.1398, visits: 1, note: "+ everything in between to San Francisco" },
   { name: "San Francisco Bay Area", country: "United States", lat: 37.7749, lon: -122.4194, visits: 2 },
+  { name: "Fort Bragg", country: "United States", lat: 39.4457, lon: -123.8053, visits: 1, note: "+ everything in between from San Francisco" },
   { name: "Honolulu", country: "United States", lat: 21.3069, lon: -157.8583, visits: 1, note: "Oʻahu" },
 ]
