@@ -7,7 +7,6 @@ import { travelPlaces, type TravelPlace } from "@/lib/travels-data"
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 
 const VISITED_COLOR = "#b86b3e"
-const LIVED_COLOR = "#3f6b8f"
 
 function radiusFor(place: TravelPlace) {
   if (place.lived) return 6.5
@@ -16,9 +15,8 @@ function radiusFor(place: TravelPlace) {
 }
 
 function densityColorFor(place: TravelPlace) {
-  if (place.lived) return LIVED_COLOR
-  const visits = place.visits ?? 1
-  const t = Math.min(visits / 10, 1)
+  // Living somewhere counts as maximum density on the same scale as visit count.
+  const t = place.lived ? 1 : Math.min((place.visits ?? 1) / 10, 1)
   const from = [232, 201, 160]
   const to = [138, 45, 18]
   const rgb = from.map((c, i) => Math.round(c + (to[i] - c) * t))
@@ -67,7 +65,7 @@ export function TravelsContent() {
 
       <div
         className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[3px_3px_0_#403b32]"
-        style={{ aspectRatio: "800 / 335", overflow: "hidden" }}
+        style={{ aspectRatio: "800 / 305", overflow: "hidden" }}
       >
         <ComposableMap
           projection="geoEqualEarth"
@@ -106,7 +104,7 @@ export function TravelsContent() {
               <circle r={radiusFor(place) + 5} fill="transparent" style={{ cursor: "pointer" }} />
               <circle
                 r={radiusFor(place)}
-                fill={view === "density" ? densityColorFor(place) : place.lived ? LIVED_COLOR : VISITED_COLOR}
+                fill={view === "density" ? densityColorFor(place) : VISITED_COLOR}
                 stroke="#2a2a2a"
                 strokeWidth={0.6}
                 opacity={0.9}
