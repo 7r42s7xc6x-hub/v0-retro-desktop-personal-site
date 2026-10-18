@@ -11,7 +11,7 @@ const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 const MAP_WIDTH = 800
 const MAP_HEIGHT = 450
 const PLACE_COLOR = "#b8452f"
-const HEX_RADIUS = 11
+const HEX_RADIUS = 5
 
 // Matches the projection react-simple-maps builds internally for this
 // ComposableMap (geoEqualEarth, same scale, centered translate), so hex
