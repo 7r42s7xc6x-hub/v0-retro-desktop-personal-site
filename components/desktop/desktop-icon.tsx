@@ -29,6 +29,7 @@ interface DesktopIconProps {
     | "support"
     | "projects"
     | "tokens"
+    | "travels"
 }
 
 export function DesktopIcon({
@@ -336,6 +337,26 @@ export function DesktopIcon({
               <div className="absolute bottom-1.5 left-4 h-4 w-1.5 bg-[#b86b3e]" />
               <div className="absolute bottom-1.5 left-[26px] h-6 w-1.5 bg-[#6b8f3f]" />
             </div>
+          </div>
+        )
+      case "travels":
+        return (
+          <div className="w-12 h-12 relative">
+            {/* Globe sphere */}
+            <div className="absolute inset-0 rounded-full border-2 border-[#2a2a2a] bg-gradient-to-br from-[#7eb8da] to-[#3f6b8f] overflow-hidden">
+              {/* Latitude lines */}
+              <div className="absolute left-0 right-0 top-[30%] h-[1px] bg-white/30" />
+              <div className="absolute left-0 right-0 top-1/2 h-[1px] bg-white/40" />
+              <div className="absolute left-0 right-0 top-[70%] h-[1px] bg-white/30" />
+              {/* Longitude line */}
+              <div className="absolute top-0 bottom-0 left-1/2 w-[1px] -translate-x-1/2 bg-white/30" />
+              {/* Continent blobs */}
+              <div className="absolute top-2 left-1 h-2 w-3 rotate-12 rounded-full bg-[#6b8f3f]" />
+              <div className="absolute bottom-2 right-1 h-2.5 w-4 -rotate-12 rounded-full bg-[#6b8f3f]" />
+              <div className="absolute top-5 right-2 h-2 w-2 rounded-full bg-[#6b8f3f]" />
+            </div>
+            {/* Pin marker */}
+            <div className="absolute -top-1 -right-1 h-3 w-3 rounded-full border border-[#2a2a2a] bg-[#b86b3e]" />
           </div>
         )
       case "support":

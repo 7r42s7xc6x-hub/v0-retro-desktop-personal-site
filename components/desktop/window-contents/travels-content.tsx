@@ -1,0 +1,129 @@
+"use client"
+
+import { useMemo, useState } from "react"
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
+import { travelPlaces, type TravelPlace } from "@/lib/travels-data"
+
+const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
+
+const VISITED_COLOR = "#b86b3e"
+const LIVED_COLOR = "#3f6b8f"
+
+function radiusFor(place: TravelPlace) {
+  if (place.lived) return 6.5
+  const visits = place.visits ?? 1
+  return Math.min(3 + Math.sqrt(visits) * 1.3, 8)
+}
+
+function densityColorFor(place: TravelPlace) {
+  if (place.lived) return LIVED_COLOR
+  const visits = place.visits ?? 1
+  const t = Math.min(visits / 10, 1)
+  const from = [232, 201, 160]
+  const to = [138, 45, 18]
+  const rgb = from.map((c, i) => Math.round(c + (to[i] - c) * t))
+  return `rgb(${rgb.join(",")})`
+}
+
+export function TravelsContent() {
+  const [view, setView] = useState<"places" | "density">("places")
+  const [selected, setSelected] = useState<TravelPlace | null>(null)
+
+  const countryCount = useMemo(() => new Set(travelPlaces.map((p) => p.country)).size, [])
+
+  return (
+    <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
+      <p className="text-sm leading-relaxed">Places I&apos;ve been and places that inspired me along the way.</p>
+
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-[#5b5549]">
+          {countryCount} countries · {travelPlaces.length} places
+        </span>
+        <div className="flex gap-1">
+          <button
+            onClick={() => setView("places")}
+            className={`border-2 border-[#403b32] px-2 py-0.5 text-xs font-bold transition-colors ${
+              view === "places" ? "bg-[#403b32] text-[#f4efe2]" : "bg-[#fffaf0] text-[#252525] hover:bg-white"
+            }`}
+          >
+            Places
+          </button>
+          <button
+            onClick={() => setView("density")}
+            className={`border-2 border-[#403b32] px-2 py-0.5 text-xs font-bold transition-colors ${
+              view === "density" ? "bg-[#403b32] text-[#f4efe2]" : "bg-[#fffaf0] text-[#252525] hover:bg-white"
+            }`}
+          >
+            Density
+          </button>
+        </div>
+      </div>
+
+      <div className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[2px_2px_0_#403b32]">
+        <ComposableMap
+          projection="geoEqualEarth"
+          projectionConfig={{ scale: 140 }}
+          width={800}
+          height={450}
+          style={{ width: "100%", height: "auto", display: "block" }}
+        >
+          <Geographies geography={GEO_URL}>
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill="#ddd4bd"
+                  stroke="#403b32"
+                  strokeWidth={0.4}
+                  style={{
+                    default: { outline: "none" },
+                    hover: { outline: "none", fill: "#ddd4bd" },
+                    pressed: { outline: "none" },
+                  }}
+                />
+              ))
+            }
+          </Geographies>
+
+          {travelPlaces.map((place) => (
+            <Marker
+              key={place.name}
+              coordinates={[place.lon, place.lat]}
+              onClick={() => setSelected(place)}
+            >
+              {/* Oversized invisible hit area so small dots stay easy to tap/click */}
+              <circle r={radiusFor(place) + 5} fill="transparent" style={{ cursor: "pointer" }} />
+              <circle
+                r={radiusFor(place)}
+                fill={view === "density" ? densityColorFor(place) : place.lived ? LIVED_COLOR : VISITED_COLOR}
+                stroke="#2a2a2a"
+                strokeWidth={0.6}
+                opacity={0.9}
+                style={{ cursor: "pointer", pointerEvents: "none" }}
+              />
+            </Marker>
+          ))}
+        </ComposableMap>
+      </div>
+
+      <div className="flex min-h-[48px] flex-col justify-center border-2 border-[#403b32] bg-[#fffaf0] p-2 shadow-[2px_2px_0_#403b32]">
+        {selected ? (
+          <>
+            <div className="text-sm font-bold">
+              {selected.name}, {selected.country}
+            </div>
+            <div className="text-xs text-[#5b5549]">
+              {selected.lived ?? `Visited ${selected.visits}×`}
+              {selected.note ? ` — ${selected.note}` : ""}
+            </div>
+          </>
+        ) : (
+          <div className="text-xs italic text-[#5b5549]">Click a dot to see where</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default TravelsContent

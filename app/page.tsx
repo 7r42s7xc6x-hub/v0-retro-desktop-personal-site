@@ -14,6 +14,7 @@ import { TalksContent } from "@/components/desktop/window-contents/talks-content
 import { PortalContent } from "@/components/desktop/window-contents/portal-content" // Import PortalContent
 import { ProjectsContent } from "@/components/desktop/window-contents/projects-content"
 import { TokensContent } from "@/components/desktop/window-contents/tokens-content"
+import { TravelsContent } from "@/components/desktop/window-contents/travels-content"
 
 type WindowId =
   | "about"
@@ -25,6 +26,7 @@ type WindowId =
   | "window" // Renamed portal to window
   | "projects"
   | "tokens"
+  | "travels"
 
 const desktopIcons = [
   { id: "about" as WindowId, label: "About Me", iconType: "document" as const },
@@ -41,6 +43,7 @@ const desktopIcons = [
   { id: "window" as WindowId, label: "Window", iconType: "portal" as const },
   { id: "projects" as WindowId, label: "Projects", iconType: "projects" as const },
   { id: "tokens" as WindowId, label: "Tokens", iconType: "tokens" as const },
+  { id: "travels" as WindowId, label: "Travels", iconType: "travels" as const },
 ]
 
 interface WindowState {
@@ -101,6 +104,11 @@ const getWindowConfigs = (
     defaultPosition: { x: isMobile ? 10 : 200, y: isMobile ? 50 : 70 },
     size: { width: isMobile ? 300 : 460, height: isMobile ? 380 : 420 },
   },
+  travels: {
+    title: "Travels",
+    defaultPosition: { x: isMobile ? 10 : 220, y: isMobile ? 50 : 60 },
+    size: { width: isMobile ? 320 : 480, height: isMobile ? 460 : 490 },
+  },
 })
 
 export default function Desktop() {
@@ -145,6 +153,7 @@ export default function Desktop() {
     { id: "window", isOpen: false, zIndex: 1, position: { x: 150, y: 100 } },
     { id: "projects", isOpen: false, zIndex: 1, position: { x: 180, y: 90 } },
     { id: "tokens", isOpen: false, zIndex: 1, position: { x: 200, y: 70 } },
+    { id: "travels", isOpen: false, zIndex: 1, position: { x: 220, y: 60 } },
   ])
   const [maxZIndex, setMaxZIndex] = useState(1)
 
@@ -200,6 +209,8 @@ export default function Desktop() {
         return <ProjectsContent />
       case "tokens":
         return <TokensContent />
+      case "travels":
+        return <TravelsContent />
     }
   }
 
