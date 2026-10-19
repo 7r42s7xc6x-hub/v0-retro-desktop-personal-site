@@ -20,9 +20,10 @@ const projection = geoEqualEarth()
   .scale(140)
   .translate([MAP_WIDTH / 2, MAP_HEIGHT / 2])
 
-// "Lived here" weighs in as a large multiple of a single visit — there's no
-// real duration data, just a stand-in for "a lot more time than a visit."
-const LIVED_WEIGHT = 20
+// "Lived here" has to clearly outrank even a heavily-revisited place like the
+// Algarve (20+ short trips) — living somewhere for years is a different kind
+// of time spent, not just "many visits."
+const LIVED_WEIGHT = 100
 
 const HEX_COLORS = ["#f6efe1", "#eddcbb", "#e2c293", "#d4a473", "#c2824f", "#ab5f37", "#8f4228", "#6e2817"]
 
@@ -168,6 +169,18 @@ export function TravelsContent() {
               ))}
         </ComposableMap>
       </div>
+
+      {view === "density" && (
+        <div className="flex items-center justify-center gap-2 text-xs text-[#5b5549]">
+          <span>less</span>
+          <div className="flex">
+            {HEX_COLORS.map((color) => (
+              <div key={color} className="h-3 w-4 border border-[#403b32]/40" style={{ backgroundColor: color }} />
+            ))}
+          </div>
+          <span>more time</span>
+        </div>
+      )}
 
       <div className="min-h-[24px] text-center text-sm font-bold text-[#403b32]">
         {selected ? `${selected.name}, ${selected.country}` : ""}
