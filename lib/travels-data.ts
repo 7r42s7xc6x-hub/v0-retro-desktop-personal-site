@@ -51,6 +51,7 @@ export const travelPlaces: TravelPlace[] = [
   { name: "Paris", country: "France", lat: 48.8566, lon: 2.3522, visits: 2 },
   { name: "Amsterdam", country: "Netherlands", lat: 52.3676, lon: 4.9041, visits: 1 },
   { name: "Copenhagen", country: "Denmark", lat: 55.6761, lon: 12.5683, visits: 1 },
+  { name: "Billund", country: "Denmark", lat: 55.7308, lon: 9.1216, visits: 1 },
   { name: "Athens", country: "Greece", lat: 37.9838, lon: 23.7275, visits: 1 },
 
   // Africa
