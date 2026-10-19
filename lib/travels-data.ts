@@ -83,6 +83,6 @@ export const travelPlaces: TravelPlace[] = [
   { name: "Dallas–Fort Worth", country: "United States", state: "Texas", lat: 32.7767, lon: -96.797, visits: 1 },
   { name: "Las Vegas", country: "United States", state: "Nevada", lat: 36.1699, lon: -115.1398, visits: 1, note: "+ everything in between to San Francisco" },
   { name: "San Francisco Bay Area", country: "United States", state: "California", lat: 37.7749, lon: -122.4194, visits: 2 },
-  { name: "Fort Bragg", country: "United States", state: "California", lat: 39.4457, lon: -123.8053, visits: 1, note: "+ everything in between from San Francisco" },
+  { name: "Eureka", country: "United States", state: "California", lat: 40.8021, lon: -124.1637, visits: 1, note: "+ everything in between from San Francisco" },
   { name: "Honolulu", country: "United States", state: "Hawaii", lat: 21.3069, lon: -157.8583, visits: 1, note: "Oʻahu" },
 ]
