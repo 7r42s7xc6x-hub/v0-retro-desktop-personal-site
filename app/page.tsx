@@ -275,7 +275,7 @@ export default function Desktop() {
             defaultPosition={windowConfigs[window.id].defaultPosition}
             position={window.position}
             size={windowConfigs[window.id].size}
-            hideScrollbar={window.id === "window"}
+            hideScrollbar={window.id === "window" || window.id === "travels"}
             renderContent={
               window.id === "window"
                 ? (position) => (
