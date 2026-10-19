@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
 import { geoEqualEarth } from "d3-geo"
 import { hexbin as d3Hexbin } from "d3-hexbin"
-import { scaleQuantize } from "d3-scale"
+import { scaleQuantile } from "d3-scale"
 import { travelPlaces, type TravelPlace } from "@/lib/travels-data"
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
@@ -20,12 +20,8 @@ const projection = geoEqualEarth()
   .scale(140)
   .translate([MAP_WIDTH / 2, MAP_HEIGHT / 2])
 
-// "Lived here" has to clearly outrank even a heavily-revisited place like the
-// Algarve (20+ short trips) — living somewhere for years is a different kind
-// of time spent, not just "many visits."
-const LIVED_WEIGHT = 100
-
 const HEX_COLORS = ["#f6efe1", "#eddcbb", "#e2c293", "#d4a473", "#c2824f", "#ab5f37", "#8f4228", "#6e2817"]
+const LIVED_COLOR = HEX_COLORS[HEX_COLORS.length - 1]
 
 interface HexPoint {
   x: number
@@ -54,20 +50,22 @@ export function TravelsContent() {
       .y((d) => d.y)
       .radius(HEX_RADIUS)(points)
 
-    const weights = bins.map((bin) => bin.reduce((sum, d) => sum + (d.place.lived ? LIVED_WEIGHT : (d.place.visits ?? 1)), 0))
-    // log-transformed so a mega-cluster (years lived + 20+ Algarve trips landing in
-    // one hex) doesn't stretch the scale and crush every ordinary 1-3 visit bin to
-    // the same bottom bucket — a single extra visit should still shift the color.
-    const logWeights = weights.map((w) => Math.log1p(w))
-    const colorScale = scaleQuantize<string>()
-      .domain([0, Math.max(...logWeights)])
-      .range(HEX_COLORS)
+    // "Lived here" is a different kind of time spent than visiting, so it always
+    // gets the darkest tier regardless of visit count — Algarve (20+ short
+    // trips) shouldn't read the same as Lisbon (lived there for years). Visit
+    // counts for everywhere else are scaled by quantile (rank, not raw
+    // magnitude) across the remaining tiers, so a single extra visit still
+    // visibly shifts the color instead of being swallowed by that outlier.
+    const hasLived = bins.map((bin) => bin.some((d) => d.place.lived))
+    const visitWeights = bins.map((bin) => bin.reduce((sum, d) => sum + (d.place.lived ? 0 : (d.place.visits ?? 1)), 0))
+    const plainWeights = visitWeights.filter((_, i) => !hasLived[i])
+    const visitScale = scaleQuantile<string>().domain(plainWeights).range(HEX_COLORS.slice(0, -1))
 
     return bins.map((bin, i) => ({
       x: bin.x,
       y: bin.y,
       hexagon: d3Hexbin().radius(HEX_RADIUS).hexagon(),
-      color: colorScale(logWeights[i]),
+      color: hasLived[i] ? LIVED_COLOR : visitScale(visitWeights[i]),
       representative: bin[0].place,
     }))
   }, [])

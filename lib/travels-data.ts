@@ -72,7 +72,7 @@ export const travelPlaces: TravelPlace[] = [
   { name: "Nebraska City", country: "United States", state: "Nebraska", lat: 40.675, lon: -95.8608, visits: 1 },
   { name: "Des Moines", country: "United States", state: "Iowa", lat: 41.5868, lon: -93.625, visits: 1 },
   { name: "Portland", country: "United States", state: "Oregon", lat: 45.5152, lon: -122.6784, visits: 1 },
-  { name: "Washington, D.C.", country: "United States", lat: 38.9072, lon: -77.0369, visits: 2, note: "Including Alexandria and Arlington, Virginia" },
+  { name: "DC Area", country: "United States", lat: 38.9072, lon: -77.0369, visits: 2, note: "Including Alexandria and Arlington, Virginia" },
   { name: "Miami", country: "United States", state: "Florida", lat: 25.7617, lon: -80.1918, visits: 1 },
   { name: "Florida Keys", country: "United States", state: "Florida", lat: 24.5551, lon: -81.78, visits: 1 },
   { name: "Kansas City", country: "United States", state: "Missouri", lat: 39.0997, lon: -94.5786, visits: 2 },
