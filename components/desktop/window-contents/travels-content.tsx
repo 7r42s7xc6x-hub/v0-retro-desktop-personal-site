@@ -99,7 +99,7 @@ export function TravelsContent() {
       </div>
 
       <div
-        className="border-2 border-[#403b32] bg-[#fffaf0] shadow-[3px_3px_0_#403b32]"
+        className="border-2 border-[#403b32] bg-[#e8e4dc] shadow-[3px_3px_0_#403b32]"
         style={{ aspectRatio: "800 / 305", overflow: "hidden" }}
       >
         <ComposableMap
