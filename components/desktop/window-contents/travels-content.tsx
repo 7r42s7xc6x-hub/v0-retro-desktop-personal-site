@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
 import { geoEqualEarth } from "d3-geo"
 import { hexbin as d3Hexbin } from "d3-hexbin"
-import { scaleQuantile } from "d3-scale"
+import { scaleQuantize } from "d3-scale"
 import { travelPlaces, type TravelPlace } from "@/lib/travels-data"
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
@@ -52,20 +52,25 @@ export function TravelsContent() {
 
     // "Lived here" is a different kind of time spent than visiting, so it always
     // gets the darkest tier regardless of visit count — Algarve (20+ short
-    // trips) shouldn't read the same as Lisbon (lived there for years). Visit
-    // counts for everywhere else are scaled by quantile (rank, not raw
-    // magnitude) across the remaining tiers, so a single extra visit still
-    // visibly shifts the color instead of being swallowed by that outlier.
+    // trips) shouldn't read the same as Lisbon (lived there for years).
+    //
+    // Everywhere else is colored by actual visit-count magnitude (log-scaled,
+    // domain capped at the highest non-lived count so that cap — not the
+    // lived pseudo-weight — sets the resolution): 1, 2, 3, 7, and 21 visits
+    // each land in their own distinct, monotonically darker bucket instead of
+    // collapsing together.
     const hasLived = bins.map((bin) => bin.some((d) => d.place.lived))
     const visitWeights = bins.map((bin) => bin.reduce((sum, d) => sum + (d.place.lived ? 0 : (d.place.visits ?? 1)), 0))
     const plainWeights = visitWeights.filter((_, i) => !hasLived[i])
-    const visitScale = scaleQuantile<string>().domain(plainWeights).range(HEX_COLORS.slice(0, -1))
+    const logWeights = visitWeights.map((w) => Math.log1p(w))
+    const maxPlainLog = Math.log1p(Math.max(...plainWeights))
+    const visitScale = scaleQuantize<string>().domain([0, maxPlainLog]).range(HEX_COLORS.slice(0, -1))
 
     return bins.map((bin, i) => ({
       x: bin.x,
       y: bin.y,
       hexagon: d3Hexbin().radius(HEX_RADIUS).hexagon(),
-      color: hasLived[i] ? LIVED_COLOR : visitScale(visitWeights[i]),
+      color: hasLived[i] ? LIVED_COLOR : visitScale(logWeights[i]),
       representative: bin[0].place,
     }))
   }, [])
