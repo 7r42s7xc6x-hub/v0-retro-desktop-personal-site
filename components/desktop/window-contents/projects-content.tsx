@@ -15,7 +15,7 @@ const projects = [
 
 export function ProjectsContent() {
   return (
-    <div className="space-y-4 bg-[#f4efe2] p-4 text-[#252525]">
+    <div className="space-y-4 p-4 text-[#252525]">
       <p className="text-sm leading-relaxed">
         Things I&apos;ve built and projects I&apos;m working on.
       </p>

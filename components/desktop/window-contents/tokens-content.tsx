@@ -101,8 +101,8 @@ export function TokensContent() {
       .catch(() => setFailed(true))
   }, [])
 
-  if (failed) return <p className="bg-[#f4efe2] p-4 text-sm text-[#252525]">Couldn&apos;t load token stats.</p>
-  if (!data) return <p className="bg-[#f4efe2] p-4 text-sm text-[#252525]">Loading…</p>
+  if (failed) return <p className="p-4 text-sm text-[#252525]">Couldn&apos;t load token stats.</p>
+  if (!data) return <p className="p-4 text-sm text-[#252525]">Loading…</p>
 
   const { totals } = data
   const totalTokens = totals.input + totals.output + totals.cacheRead + totals.cacheWrite
@@ -126,7 +126,7 @@ export function TokensContent() {
   ]
 
   return (
-    <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
+    <div className="space-y-3 p-4 text-[#252525]">
       <p className="text-xs leading-relaxed text-[#5b5549]">
         My Claude Code usage{data.firstDay ? ` since ${data.firstDay}` : ""}.
       </p>
