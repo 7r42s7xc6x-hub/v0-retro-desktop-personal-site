@@ -73,11 +73,7 @@ export function TravelsContent() {
   }, [])
 
   return (
-    <div className="space-y-3 bg-[#f4efe2] p-4 text-[#252525]">
-      <p className="text-center text-sm leading-relaxed">
-        Places I&apos;ve been and places that inspired me along the way.
-      </p>
-
+    <div className="min-h-[420px] space-y-3 bg-[#f4efe2] p-4 text-[#252525] sm:min-h-[580px]">
       <div className="space-y-2 text-center">
         <div className="text-base font-bold text-[#403b32]">
           {usStateCount} US states · {countryCount} countries
