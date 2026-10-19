@@ -101,13 +101,16 @@ export function TravelsContent() {
         </div>
       </div>
 
-      <div className="bg-[#e8e4dc]" style={{ aspectRatio: "800 / 305", overflow: "hidden" }}>
+      <div
+        className="bg-[#e8e4dc] [&_*]:outline-none"
+        style={{ aspectRatio: "800 / 305", overflow: "hidden" }}
+      >
         <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 140 }}
           width={MAP_WIDTH}
           height={MAP_HEIGHT}
-          style={{ width: "100%", height: "auto", display: "block" }}
+          style={{ width: "100%", height: "auto", display: "block", outline: "none" }}
         >
           <Geographies geography={GEO_URL}>
             {({ geographies }) =>
@@ -137,7 +140,7 @@ export function TravelsContent() {
                   onClick={() => setSelected(place)}
                 >
                   {/* Oversized invisible hit area so small dots stay easy to hover/tap */}
-                  <circle r={9} fill="transparent" style={{ cursor: "pointer" }} />
+                  <circle r={9} fill="transparent" style={{ cursor: "pointer", outline: "none" }} />
                   <circle
                     r={place.lived ? 5 : 4}
                     fill={PLACE_COLOR}
@@ -159,7 +162,7 @@ export function TravelsContent() {
                     fill={bin.color}
                     stroke="#403b32"
                     strokeWidth={0.4}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", outline: "none" }}
                   />
                 </g>
               ))}
