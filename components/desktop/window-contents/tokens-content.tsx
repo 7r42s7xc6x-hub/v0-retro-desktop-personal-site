@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts"
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts"
 
 interface Day {
   d: string
@@ -159,16 +159,23 @@ export function TokensContent() {
       <Panel title="Tokens per day, by model">
         <div className="h-32">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+            <LineChart data={chartData} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
               <XAxis dataKey="day" tick={{ fontSize: 10 }} tickLine={false} axisLine={{ stroke: "#403b32" }} />
               <Tooltip
                 formatter={(v: number, name: string) => [formatTokens(v), modelLabel(name)]}
                 contentStyle={{ fontSize: 11, border: "2px solid #403b32", borderRadius: 0, background: "#fffaf0" }}
               />
               {models.map((m, i) => (
-                <Bar key={m} dataKey={m} stackId="t" fill={MODEL_COLORS[i % MODEL_COLORS.length]} />
+                <Line
+                  key={m}
+                  type="monotone"
+                  dataKey={m}
+                  stroke={MODEL_COLORS[i % MODEL_COLORS.length]}
+                  strokeWidth={2}
+                  dot={false}
+                />
               ))}
-            </BarChart>
+            </LineChart>
           </ResponsiveContainer>
         </div>
         <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
