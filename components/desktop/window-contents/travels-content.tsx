@@ -98,10 +98,7 @@ export function TravelsContent() {
         </div>
       </div>
 
-      <div
-        className="border-2 border-[#403b32] bg-[#e8e4dc] shadow-[3px_3px_0_#403b32]"
-        style={{ aspectRatio: "800 / 305", overflow: "hidden" }}
-      >
+      <div className="bg-[#e8e4dc]" style={{ aspectRatio: "800 / 305", overflow: "hidden" }}>
         <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 140 }}
