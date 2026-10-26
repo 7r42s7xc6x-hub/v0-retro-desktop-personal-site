@@ -38,10 +38,19 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://salvadorduarte.com/images/profile.png",
+        url: "https://salvadorduarte.com/social/preview-v2.jpg",
         width: 1200,
         height: 630,
-        alt: "Salvador Duarte",
+        alt: "Salvador Duarte's retro desktop site, with a photo card floating over the desktop wallpaper",
+      },
+    ],
+    videos: [
+      {
+        url: "https://salvadorduarte.com/social/preview-v2.mp4",
+        secureUrl: "https://salvadorduarte.com/social/preview-v2.mp4",
+        type: "video/mp4",
+        width: 1200,
+        height: 630,
       },
     ],
   },
@@ -49,7 +58,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Salvador Duarte | Personal Site",
     description: "Currently helping build the home and infrastructure for solo founders.",
-    images: ["https://salvadorduarte.com/images/profile.png"],
+    images: [
+      {
+        url: "https://salvadorduarte.com/social/preview-v2.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Salvador Duarte's retro desktop site, with a photo card floating over the desktop wallpaper",
+      },
+    ],
     creator: "@salvduarte",
   },
   robots: {
