@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "Currently helping build the home and infrastructure for solo founders.",
   keywords: [
     "Salvador Duarte",
-    "velmeryn",
+    "salvduarte",
     "progreshion",
     "podcast",
     "philosophy",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "Salvador Duarte | Personal Site",
     description: "Currently helping build the home and infrastructure for solo founders.",
     images: ["https://salvadorduarte.com/images/profile.png"],
-    creator: "@velmeryn",
+    creator: "@salvduarte",
   },
   robots: {
     index: true,
@@ -89,7 +89,7 @@ export default function RootLayout({
               description:
                 "Currently helping build the home and infrastructure for solo founders.",
               sameAs: [
-                "https://twitter.com/velmeryn",
+                "https://twitter.com/salvduarte",
               ],
               jobTitle: "Writer & Podcaster",
             }),

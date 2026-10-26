@@ -6,7 +6,7 @@ const socialLinks = [
   {
     id: "twitter",
     label: "Twitter",
-    url: "https://twitter.com/velmeryn",
+    url: "https://twitter.com/salvduarte",
     icon: (
       <div className="w-12 h-12 relative">
         <div className="absolute inset-0 bg-[#1a1a1a] border-2 border-[#2a2a2a] rounded-md flex items-center justify-center">
