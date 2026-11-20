@@ -16,9 +16,17 @@ const projects = [
     description: "A database of solo founders and solo-founded companies.",
     url: "https://solo.salvadorduarte.com",
   },
+  {
+    name: "Claim Checker",
+    description: "A multi-agent fact checker that researches every claim in a draft.",
+    url: "https://www.cc.salvadorduarte.com",
+  },
 ]
 
-const displayUrl = (url: string) => `www.${url.replace(/^https?:\/\//, "")}`
+const displayUrl = (url: string) => {
+  const host = url.replace(/^https?:\/\//, "")
+  return host.startsWith("www.") ? host : `www.${host}`
+}
 
 export function ProjectsContent() {
   return (
