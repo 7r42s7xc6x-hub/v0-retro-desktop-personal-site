@@ -18,6 +18,8 @@ const projects = [
   },
 ]
 
+const displayUrl = (url: string) => `www.${url.replace(/^https?:\/\//, "")}`
+
 export function ProjectsContent() {
   return (
     <div className="space-y-4 p-4 text-[#252525]">
@@ -36,7 +38,7 @@ export function ProjectsContent() {
           >
             <h2 className="font-bold text-sm">{project.name}</h2>
             <p className="mt-1 text-xs text-[#5b5549]">{project.description}</p>
-            <p className="mt-2 text-xs text-blue-700 underline">{project.url}</p>
+            <p className="mt-2 text-xs text-blue-700 underline">{displayUrl(project.url)}</p>
           </a>
         ))}
       </div>
