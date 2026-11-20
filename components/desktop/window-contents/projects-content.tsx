@@ -11,6 +11,11 @@ const projects = [
     description: "A simulator of my interview with Tyler Cowen.",
     url: "https://cowensimulator.com",
   },
+  {
+    name: "Solo Database",
+    description: "A database of solo founders and solo-founded companies.",
+    url: "https://solo.salvadorduarte.com",
+  },
 ]
 
 export function ProjectsContent() {
