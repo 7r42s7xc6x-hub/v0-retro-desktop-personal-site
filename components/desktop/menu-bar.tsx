@@ -40,7 +40,7 @@ const MENU_CONFIG = {
     },
   ],
 
-  githubUrl: "https://github.com/7r42s7xc6x-hub/v0-retro-desktop-personal-site",
+  githubUrl: "mailto:me@salvadorduarte.com",
 
   // Contact email
   email: "hello@salvadorduarte.com",
@@ -167,7 +167,11 @@ export function MenuBar({ onWallpaperChange, currentWallpaper }: MenuBarProps) {
               {/* View Source */}
               {MENU_CONFIG.githubUrl && (
                 <DropdownMenuItem
-                  onClick={() => window.open(MENU_CONFIG.githubUrl, "_blank")}
+                  onClick={() =>
+                    MENU_CONFIG.githubUrl.startsWith("mailto:")
+                      ? (window.location.href = MENU_CONFIG.githubUrl)
+                      : window.open(MENU_CONFIG.githubUrl, "_blank")
+                  }
                   className="text-sm text-black hover:bg-black hover:text-white rounded-none cursor-pointer"
                 >
                   View Source
