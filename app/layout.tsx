@@ -99,15 +99,22 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Salvador Duarte",
-              url: "https://salvadorduarte.com",
-              description:
-                "Currently helping build the home and infrastructure for solo founders.",
-              sameAs: [
-                "https://twitter.com/salvduarte",
-              ],
-              jobTitle: "Writer & Podcaster",
+              "@type": "ProfilePage",
+              mainEntity: {
+                "@type": "Person",
+                name: "Salvador Duarte",
+                alternateName: "salvduarte",
+                url: "https://salvadorduarte.com",
+                description: "Special projects at Solo Founders",
+                sameAs: [
+                  "https://x.com/salvduarte",
+                  "https://www.linkedin.com/in/salvador-duarte-8b757638a",
+                  "https://www.youtube.com/@salvadorpodcast",
+                  "https://podcasts.apple.com/gb/podcast/salvador-podcast/id1798566809",
+                  "https://salvadorcduarte.substack.com",
+                  "https://solofounders.com/blog/author/salvador/",
+                ],
+              },
             }),
           }}
         />
